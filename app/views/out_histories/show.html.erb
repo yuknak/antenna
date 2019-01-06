@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rec time:</strong>
+  <%= @out_history.rec_time %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @out_history.site_id %>
+</p>
+
+<p>
+  <strong>Article:</strong>
+  <%= @out_history.article_id %>
+</p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @out_history.ip %>
+</p>
+
+<p>
+  <strong>Chkd:</strong>
+  <%= @out_history.chkd %>
+</p>
+
+<%= link_to 'Edit', edit_out_history_path(@out_history) %> |
+<%= link_to 'Back', out_histories_path %>

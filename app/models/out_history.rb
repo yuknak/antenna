@@ -1,0 +1,2 @@
+class OutHistory < ApplicationRecord
+end

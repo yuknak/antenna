@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Daily In Counts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Count date</th>
+      <th>Site</th>
+      <th>Count</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @daily_in_counts.each do |daily_in_count| %>
+      <tr>
+        <td><%= daily_in_count.count_date %></td>
+        <td><%= daily_in_count.site_id %></td>
+        <td><%= daily_in_count.count %></td>
+        <td><%= link_to 'Show', daily_in_count %></td>
+        <td><%= link_to 'Edit', edit_daily_in_count_path(daily_in_count) %></td>
+        <td><%= link_to 'Destroy', daily_in_count, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Daily In Count', new_daily_in_count_path %>

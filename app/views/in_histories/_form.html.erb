@@ -1,0 +1,47 @@
+<%= form_with(model: in_history, local: true) do |form| %>
+  <% if in_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(in_history.errors.count, "error") %> prohibited this in_history from being saved:</h2>
+
+      <ul>
+      <% in_history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :rec_time %>
+    <%= form.datetime_select :rec_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :site_id %>
+    <%= form.number_field :site_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :referer %>
+    <%= form.text_field :referer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ip %>
+    <%= form.text_field :ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :chkd %>
+    <%= form.text_field :chkd %>
+  </div>
+
+  <div class="field">
+    <%= form.label :request_line %>
+    <%= form.text_field :request_line %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

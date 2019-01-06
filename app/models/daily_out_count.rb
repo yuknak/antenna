@@ -1,0 +1,2 @@
+class DailyOutCount < ApplicationRecord
+end

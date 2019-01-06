@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category_id: 1
+  name: MyString
+  url: MyString
+  seed_url: MyString
+
+two:
+  category_id: 1
+  name: MyString
+  url: MyString
+  seed_url: MyString

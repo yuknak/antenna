@@ -1,0 +1,2 @@
+class InHistory < ApplicationRecord
+end

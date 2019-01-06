@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Count date:</strong>
+  <%= @daily_out_count.count_date %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @daily_out_count.site_id %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @daily_out_count.count %>
+</p>
+
+<%= link_to 'Edit', edit_daily_out_count_path(@daily_out_count) %> |
+<%= link_to 'Back', daily_out_counts_path %>
