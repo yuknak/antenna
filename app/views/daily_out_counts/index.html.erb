@@ -2,6 +2,12 @@
 
 <h1>Daily Out Counts</h1>
 
+<p>
+<%= link_to 'New Daily Out Count', new_daily_out_count_path %>
+</p>
+
+<%= page_entries_info @daily_out_counts %>
+
 <table>
   <thead>
     <tr>
@@ -26,6 +32,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Daily Out Count', new_daily_out_count_path %>
+<%= paginate @daily_out_counts %>

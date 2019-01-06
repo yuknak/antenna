@@ -4,7 +4,7 @@ class ArticleOutCountsController < ApplicationController
   # GET /article_out_counts
   # GET /article_out_counts.json
   def index
-    @article_out_counts = ArticleOutCount.all
+    @article_out_counts = ArticleOutCount.page(params[:page]).per(20)
   end
 
   # GET /article_out_counts/1

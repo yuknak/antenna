@@ -2,6 +2,12 @@
 
 <h1>Article Out Counts</h1>
 
+<p>
+<%= link_to 'New Article Out Count', new_article_out_count_path %>
+</p>
+
+<%= page_entries_info @article_out_counts %>
+
 <table>
   <thead>
     <tr>
@@ -26,6 +32,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Article Out Count', new_article_out_count_path %>
+<%= paginate @article_out_counts %>

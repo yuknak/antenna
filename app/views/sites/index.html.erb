@@ -2,6 +2,12 @@
 
 <h1>Sites</h1>
 
+<p>
+<%= link_to 'New Site', new_site_path %>
+</p>
+
+<%= page_entries_info @sites %>
+
 <table>
   <thead>
     <tr>
@@ -28,6 +34,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Site', new_site_path %>
+<%= paginate @sites %>

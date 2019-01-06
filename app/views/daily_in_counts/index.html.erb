@@ -2,6 +2,12 @@
 
 <h1>Daily In Counts</h1>
 
+<p>
+<%= link_to 'New Daily In Count', new_daily_in_count_path %>
+</p>
+
+<%= page_entries_info @daily_in_counts %>
+
 <table>
   <thead>
     <tr>
@@ -26,6 +32,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Daily In Count', new_daily_in_count_path %>
+<%= paginate @daily_in_counts %>

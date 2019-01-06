@@ -2,6 +2,12 @@
 
 <h1>In Histories</h1>
 
+<p>
+<%= link_to 'New In History', new_in_history_path %>
+</p>
+
+<%= page_entries_info @in_histories %>
+
 <table>
   <thead>
     <tr>
@@ -32,6 +38,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New In History', new_in_history_path %>
+<%= paginate @in_histories %>

@@ -4,7 +4,7 @@ class DailyOutCountsController < ApplicationController
   # GET /daily_out_counts
   # GET /daily_out_counts.json
   def index
-    @daily_out_counts = DailyOutCount.all
+    @daily_out_counts = DailyOutCount.page(params[:page]).per(20)
   end
 
   # GET /daily_out_counts/1

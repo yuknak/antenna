@@ -4,7 +4,7 @@ class OutHistoriesController < ApplicationController
   # GET /out_histories
   # GET /out_histories.json
   def index
-    @out_histories = OutHistory.all
+    @out_histories = OutHistory.page(params[:page]).per(20)
   end
 
   # GET /out_histories/1

@@ -2,6 +2,12 @@
 
 <h1>Categories</h1>
 
+<p>
+<%= link_to 'New Category', new_category_path %>
+</p>
+
+<%= page_entries_info @categories %>
+
 <table>
   <thead>
     <tr>
@@ -22,6 +28,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Category', new_category_path %>
+<%= paginate @categories %>
