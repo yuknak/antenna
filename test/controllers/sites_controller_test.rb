@@ -17,7 +17,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create site" do
     assert_difference('Site.count') do
-      post sites_url, params: { site: { category_id: @site.category_id, name: @site.name, seed_url: @site.seed_url, url: @site.url } }
+      post sites_url, params: { site: { category_id: @site.category_id, name: @site.name, feed_url: @site.feed_url, url: @site.url } }
     end
 
     assert_redirected_to site_url(Site.last)
@@ -34,7 +34,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update site" do
-    patch site_url(@site), params: { site: { category_id: @site.category_id, name: @site.name, seed_url: @site.seed_url, url: @site.url } }
+    patch site_url(@site), params: { site: { category_id: @site.category_id, name: @site.name, feed_url: @site.feed_url, url: @site.url } }
     assert_redirected_to site_url(@site)
   end
 

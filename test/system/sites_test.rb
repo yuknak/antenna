@@ -16,7 +16,7 @@ class SitesTest < ApplicationSystemTestCase
 
     fill_in "Category", with: @site.category_id
     fill_in "Name", with: @site.name
-    fill_in "Seed url", with: @site.seed_url
+    fill_in "Seed url", with: @site.feed_url
     fill_in "Url", with: @site.url
     click_on "Create Site"
 
@@ -30,7 +30,7 @@ class SitesTest < ApplicationSystemTestCase
 
     fill_in "Category", with: @site.category_id
     fill_in "Name", with: @site.name
-    fill_in "Seed url", with: @site.seed_url
+    fill_in "Seed url", with: @site.feed_url
     fill_in "Url", with: @site.url
     click_on "Update Site"
 

@@ -5,7 +5,7 @@
 rails generate scaffold category ^
   name:string
 rails generate scaffold site ^
-  category_id:integer name:string url:string seed_url:string 
+  category_id:integer name:string url:string feed_url:string 
 rails generate scaffold article ^
   site_id:integer post_time:datetime name:string url:string ^
   pull_time:datetime chkd:string 
@@ -34,7 +34,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.integer  "category_id", limit: 4, null: false
         t.string   "name", limit: 255, null: false
         t.string   "url", limit: 65535
-        t.string   "seed_url", limit: 65535
+        t.string   "feed_url", limit: 65535
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end

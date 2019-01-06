@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.integer "category_id", limit: 4, null: false
     t.string "name", limit: 255, null: false
     t.string "url", limit: 65535
-    t.string "seed_url", limit: 65535
+    t.string "feed_url", limit: 65535
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sites_on_category_id"

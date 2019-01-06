@@ -4,10 +4,10 @@ one:
   category_id: 1
   name: MyString
   url: MyString
-  seed_url: MyString
+  feed_url: MyString
 
 two:
   category_id: 1
   name: MyString
   url: MyString
-  seed_url: MyString
+  feed_url: MyString
