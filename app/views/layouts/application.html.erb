@@ -9,7 +9,34 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+<style>
+.nav li {
+  display: inline-block;
+}
+</style>
+
   <body>
-    <%= yield %>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <h1><%= link_to "ANTENNA", root_path %></h1>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+
+<li><%= link_to 'Categories', categories_path %></li>
+<li><%= link_to 'Sites', sites_path %></li>
+<li><%= link_to 'Articles', articles_path %></li>
+<li><%= link_to 'InHistories', in_histories_path %></li>
+<li><%= link_to 'OutHistories', out_histories_path %></li>
+<li><%= link_to 'DailyInCounts', daily_in_counts_path %></li>
+<li><%= link_to 'DailyOutCounts', daily_out_counts_path %></li>
+<li><%= link_to 'ArticleOutCounts', article_out_counts_path %></li>
+
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
