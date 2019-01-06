@@ -194,6 +194,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   duktape
   jbuilder (~> 2.5)
+  nokogiri
   puma (~> 3.11)
   rails (~> 5.2.2)
   sass-rails (~> 5.0)
