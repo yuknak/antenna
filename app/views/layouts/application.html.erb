@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Antenna</title>
+    <title>ANTENNA - Admin console</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,12 +13,43 @@
 .nav li {
   display: inline-block;
 }
+table {
+  border-collapse: collapse;
+}
+table th, table td {
+  border: solid 1px black;
+}
+header {
+  background-color: black;
+  color: white;
+}
+header a:visited {
+  color: white;
+}
+header a:hover {
+    color: black;
+    background-color: white;
+}
+footer {
+  background-color: black;
+  color: white;
+}
+footer a:visited {
+  color: white;
+}
+footer a:hover {
+    color: black;
+    background-color: white;
+}
+.container {
+  padding: 10px;
+}
 </style>
 
   <body>
     <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
-        <h1><%= link_to "ANTENNA", root_path %></h1>
+        <h1><%= link_to "ANTENNA - Admin console", root_path %></h1>
         <nav>
           <ul class="nav navbar-nav navbar-right">
 
@@ -39,9 +70,9 @@
       <%= yield %>
     </div>
     <footer>
-      <p>
+      <div class="container">
       PROJECT <%= link_to 'yuknak/ANTENNA', 'https://github.com/yuknak/antenna', target: "_blank" %>
-      </p>
+      </div>
     </footer>
   </body>
 </html>

@@ -6,7 +6,9 @@
 <%= link_to 'New In History', new_in_history_path %>
 </p>
 
+<p>
 <%= page_entries_info @in_histories %>
+</p>
 
 <table>
   <thead>
@@ -38,4 +40,6 @@
   </tbody>
 </table>
 
+<p>
 <%= paginate @in_histories %>
+</p>

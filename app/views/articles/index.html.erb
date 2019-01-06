@@ -6,7 +6,9 @@
 <%= link_to 'New Article', new_article_path %>
 </p>
 
+<p>
 <%= page_entries_info @articles %>
+</p>
 
 <table>
   <thead>
@@ -37,5 +39,6 @@
     <% end %>
   </tbody>
 </table>
-
+<p>
 <%= paginate @articles %>
+</p>

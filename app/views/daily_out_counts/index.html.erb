@@ -6,7 +6,9 @@
 <%= link_to 'New Daily Out Count', new_daily_out_count_path %>
 </p>
 
+<p>
 <%= page_entries_info @daily_out_counts %>
+</p>
 
 <table>
   <thead>
@@ -31,5 +33,6 @@
     <% end %>
   </tbody>
 </table>
-
+<p>
 <%= paginate @daily_out_counts %>
+</p>

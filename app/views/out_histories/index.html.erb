@@ -6,7 +6,9 @@
 <%= link_to 'New Out History', new_out_history_path %>
 </p>
 
+<p>
 <%= page_entries_info @out_histories %>
+</p>
 
 <table>
   <thead>
@@ -36,4 +38,6 @@
   </tbody>
 </table>
 
+<p>
 <%= paginate @out_histories %>
+</p>

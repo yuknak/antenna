@@ -6,7 +6,9 @@
 <%= link_to 'New Site', new_site_path %>
 </p>
 
+<p>
 <%= page_entries_info @sites %>
+</p>
 
 <table>
   <thead>
@@ -34,4 +36,6 @@
   </tbody>
 </table>
 
+<p>
 <%= paginate @sites %>
+</p>
