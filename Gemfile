@@ -59,3 +59,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Added later by yuknak
 gem 'nokogiri'
 gem 'kaminari', '~> 0.17.0'
+gem 'feedjira'
+gem 'whenever', require: false
