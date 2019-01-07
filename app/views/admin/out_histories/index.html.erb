@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Out Histories</h1>
+
+<p>
+<%= link_to 'New Out History', new_admin_out_history_path %>
+</p>
+
+<p>
+<%= page_entries_info @out_histories %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rec time</th>
+      <th>Site</th>
+      <th>Article</th>
+      <th>Ip</th>
+      <th>Chkd</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @out_histories.each do |out_history| %>
+      <tr>
+        <td><%= out_history.rec_time.strftime("%y-%m-%d %H:%M:%S") %></td>
+        <td><%= out_history.site&.name %></td>
+        <td><%= out_history.article&.name %></td>
+        <td><%= out_history.ip %></td>
+        <td><%= out_history.chkd %></td>
+        <td><%= link_to 'Show', admin_out_history_path(out_history) %></td>
+        <td><%= link_to 'Edit', edit_admin_out_history_path(out_history) %></td>
+        <td><%= link_to 'Destroy', admin_out_history_path(out_history), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+<%= paginate @out_histories %>
+</p>

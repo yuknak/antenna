@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @article.site_id %>
+</p>
+
+<p>
+  <strong>Post time:</strong>
+  <%= @article.post_time %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @article.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @article.url %>
+</p>
+
+<p>
+  <strong>Pull time:</strong>
+  <%= @article.pull_time %>
+</p>
+
+<p>
+  <strong>Chkd:</strong>
+  <%= @article.chkd %>
+</p>
+
+<%= link_to 'Edit', edit_admin_article_path(@article) %> |
+<%= link_to 'Back', admin_articles_path %>

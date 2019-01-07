@@ -1,0 +1,42 @@
+<%= form_for [:admin, out_history] do |form| %>
+  <% if out_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(out_history.errors.count, "error") %> prohibited this out_history from being saved:</h2>
+
+      <ul>
+      <% out_history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :rec_time %>
+    <%= form.datetime_select :rec_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :site_id %>
+    <%= form.number_field :site_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :article_id %>
+    <%= form.number_field :article_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ip %>
+    <%= form.text_field :ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :chkd %>
+    <%= form.text_field :chkd %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

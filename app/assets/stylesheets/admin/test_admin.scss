@@ -1,0 +1,43 @@
+body {
+  font-size: 80%;
+}
+.nav li {
+    display: inline-block;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  table th, table td {
+    border: solid 1px black;
+  }
+  header {
+    background-color: black;
+    color: white;
+  }
+  header a {
+    color: white;
+  }
+  header a:visited {
+    color: white;
+  }
+  header a:hover {
+      color: black;
+      background-color: white;
+  }
+  footer {
+    background-color: black;
+    color: white;
+  }
+  footer a {
+    color: white;
+  }
+  footer a:visited {
+    color: white;
+  }
+  footer a:hover {
+      color: black;
+      background-color: white;
+  }
+  .container {
+    padding: 10px;
+  }

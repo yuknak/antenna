@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Article Out Counts</h1>
+
+<p>
+<%= link_to 'New Article Out Count', new_admin_article_out_count_path %>
+</p>
+
+<p>
+<%= page_entries_info @article_out_counts %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Last time</th>
+      <th>Article</th>
+      <th>Count</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @article_out_counts.each do |article_out_count| %>
+      <tr>
+        <td><%= article_out_count.last_time.strftime("%y-%m-%d %H:%M:%S") %></td>
+        <td><%= article_out_count.article&.name %></td>
+        <td><%= article_out_count.count.to_s(:delimited) %></td>
+        <td><%= link_to 'Show', admin_article_out_count_path(article_out_count) %></td>
+        <td><%= link_to 'Edit', edit_admin_article_out_count_path(article_out_count) %></td>
+        <td><%= link_to 'Destroy', admin_article_out_count_path(article_out_count), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+<%= paginate @article_out_counts %>
+</p>

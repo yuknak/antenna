@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Daily Out Counts</h1>
+
+<p>
+<%= link_to 'New Daily Out Count', new_admin_daily_out_count_path %>
+</p>
+
+<p>
+<%= page_entries_info @daily_out_counts %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Count date</th>
+      <th>Site</th>
+      <th>Count</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @daily_out_counts.each do |daily_out_count| %>
+      <tr>
+        <td><%= dt = daily_out_count.count_date; sprintf("%02d-%02d-%02d",dt/10000,dt/100%100,dt%100) %></td>
+        <td><%= if daily_out_count.site&.icon_url.present? then image_tag daily_out_count.site&.icon_url else "N/A" end %>
+        <%= daily_out_count.site&.name %></td>
+        <td><%= daily_out_count.count.to_s(:delimited) %></td>
+        <td><%= link_to 'Show', admin_daily_out_count_path(daily_out_count) %></td>
+        <td><%= link_to 'Edit', edit_admin_daily_out_count_path(daily_out_count) %></td>
+        <td><%= link_to 'Destroy', admin_daily_out_count_path(daily_out_count), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p>
+<%= paginate @daily_out_counts %>
+</p>
