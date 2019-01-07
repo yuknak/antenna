@@ -27,6 +27,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
     def up
       create_table "categories", force: :cascade do |t|
         t.string   "name", limit: 255, null: false
+        t.string   "icon_url", limit: 65535
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end
@@ -35,6 +36,8 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.string   "name", limit: 255, null: false
         t.string   "url", limit: 65535
         t.string   "feed_url", limit: 65535
+        t.string   "thumbnail_url", limit: 65535
+        t.string   "icon_url", limit: 65535
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end

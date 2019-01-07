@@ -2,7 +2,8 @@
 
 # Rake command: rake moudamepo:fetch > db/seeds.rb
 # Generate db/seeds.rb
-# fetching sample data from moudamepo.com
+# Fetching sample data from moudamepo.com
+# This file simply produces a ruby source file to STDOUT.
 
 require 'open-uri'
 require 'nokogiri'
@@ -22,13 +23,16 @@ namespace :moudamepo do
       title = node.inner_text
       category_id = node.attribute('href').text
       category_id.sub!(/\//,"")
+      icon_url = "http://sub.moudamepo.com/img/cate_" + category_id + ".png"
       if (/^\d+$/ =~ category_id)
-        result += "Category.create(:name => '" + title + "') # moudamepo's id = " + category_id + "\n"
+        result += "Category.create(:name => '" + title + 
+          "',\n  :icon_url => '" + icon_url + "') # moudamepo's id = " + category_id + "\n"
       end
     end        
     result
   end
   
+  # We have to map moudamepo id to auto incremental id
   def category_id_binds
     cnt = 1;
     result = "# Mapping for moudamepo.com id to autoincrement id.\n"
@@ -45,6 +49,7 @@ namespace :moudamepo do
     result
   end
 
+  # We have to map moudamepo name to auto incremental id
   def category_name_binds
     cnt = 1;
     result = "# Mapping for moudamepo.com name to autoincrement id.\n"
@@ -62,15 +67,18 @@ namespace :moudamepo do
     result
   end
     
+  # Search toppage 1-8 for the information
   def sites(page) # (page = 1 - 8)
     result = ''
     cnt = 1;
     count_date = Time.new.yesterday.strftime("%Y%m%d")
-    fetch_as_doc(page).xpath("//td[@class='summary']").each do |node|
+    fetch_as_doc(page).xpath("//table[@class='bloginfo']").each do |node|
       name = node.xpath(".//a[@class='blogname']").inner_text
       url = node.xpath(".//a[@class='blogname']").attribute('href').text
       url.sub!(/^.+?http/,"http")
       category_name = node.xpath(".//div[@class='rank_name']/img").attribute('alt').text
+      icon_url = node.xpath(".//div[@class='rank']/img").attribute('src').text
+      thumbnail_url = node.xpath(".//img[contains(@src, 'screenshot')]").attribute('src').text
       in_count = node.xpath(".//div[@class='rank_inout']").inner_text
       in_count.sub!(/ in.+?$/,"")
       out_count = node.xpath(".//div[@class='rank_inout']").inner_text
@@ -84,14 +92,15 @@ namespace :moudamepo do
         STDERR.print "SUCCESS: " + name + ": " + url + "\n"
       end
       result += "s = Site.create(:name => %q#" + name + "#, \n  :url => '" + url +
-        "', \n  :category_id => category_name_binds['" + category_name + "'], \n  :feed_url => '"+feed_url+"')\n"
+        "', \n  :category_id => category_name_binds['" + category_name +
+        "'], \n  :feed_url => '"+feed_url+"',\n  :thumbnail_url => '" + thumbnail_url + "',\n  :icon_url => '" + icon_url + "')\n"
       # Insert to yesterday
       result += "DailyInCount.create(:count_date => " + count_date +
         ", :site_id => s.id, :count => " + in_count + ")\n"
       result += "DailyOutCount.create(:count_date => " + count_date +
         ", :site_id => s.id, :count => " + out_count + ")\n"
       cnt += 1
-      #break if (cnt > 5)
+      #break if (cnt > 2)
     end        
     result
   end
@@ -117,13 +126,16 @@ namespace :moudamepo do
     Nokogiri::HTML.parse(html, nil, charset)
   end
 
+  # Extracting rss feed link url in toppage
   private def fetch_feed_url(url)
     charset = nil
     html = open(url, "r:binary") do |f|
       charset = f.charset; f.read
     end
+    # Because page may be encoded in EUC-JP
     doc = Nokogiri::HTML.parse(html.toutf8, nil, "UTF-8")
     feed_url = ''
+    # Mainly it should be in header/link tags
     doc.xpath("//link").each { |node|
       chkurl = chkrel = chktype = nil
       chkurl = node.attribute('href').text if node.attribute('href')
@@ -140,6 +152,7 @@ namespace :moudamepo do
           end
       end
     }
+    # If not, sometimes it may be simply in normal a tags with a special form
     if (feed_url.empty?) then
       doc.xpath("//a").each { |node|
         chkurl = nil

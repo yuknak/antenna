@@ -25,9 +25,9 @@
   <tbody>
     <% @out_histories.each do |out_history| %>
       <tr>
-        <td><%= out_history.rec_time %></td>
-        <td><%= out_history.site_id %></td>
-        <td><%= out_history.article_id %></td>
+        <td><%= out_history.rec_time.strftime("%y-%m-%d %H:%M:%S") %></td>
+        <td><%= out_history.site.name %></td>
+        <td><%= out_history.article.name %></td>
         <td><%= out_history.ip %></td>
         <td><%= out_history.chkd %></td>
         <td><%= link_to 'Show', out_history %></td>

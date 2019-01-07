@@ -13,12 +13,9 @@
 <table>
   <thead>
     <tr>
-      <th>Site</th>
       <th>Post time</th>
-      <th>Name</th>
+      <th>Site/Name</th>
       <th>Url</th>
-      <th>Pull time</th>
-      <th>Chkd</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,12 +23,10 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
-        <td><%= article.site_id %></td>
-        <td><%= article.post_time %></td>
-        <td><%= article.name %></td>
+        <td><%= article.post_time.strftime("%y-%m-%d %H:%M:%S") %></td>
+        <td><%= image_tag article.site.icon_url %><%= article.site.name %><br/>
+        <%= article.name %></td>
         <td><%= article.url %></td>
-        <td><%= article.pull_time %></td>
-        <td><%= article.chkd %></td>
         <td><%= link_to 'Show', article %></td>
         <td><%= link_to 'Edit', edit_article_path(article) %></td>
         <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
