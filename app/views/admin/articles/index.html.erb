@@ -22,7 +22,7 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
-        <td><%= article.post_time.strftime("%y-%m-%d %H:%M:%S") %></td>
+        <td><%= article.post_time&.localtime %></td>
         <td><%= if article.site&.icon_url.present? then image_tag article.site&.icon_url else "N/A" end %>
         <%= article.site&.name %><br/>
         <%= link_to article.name, article.url %></td>

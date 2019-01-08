@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.string "feed_url", limit: 65535
     t.string "thumbnail_url", limit: 65535
     t.string "icon_url", limit: 65535
+    t.datetime "last_post_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sites_on_category_id"

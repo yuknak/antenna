@@ -38,6 +38,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.string   "feed_url", limit: 65535
         t.string   "thumbnail_url", limit: 65535
         t.string   "icon_url", limit: 65535
+        t.datetime "last_post_time"
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end

@@ -25,7 +25,7 @@
   <tbody>
     <% @out_histories.each do |out_history| %>
       <tr>
-        <td><%= out_history.rec_time.strftime("%y-%m-%d %H:%M:%S") %></td>
+        <td><%= out_history.rec_time&.localtime %></td>
         <td><%= out_history.site&.name %></td>
         <td><%= out_history.article&.name %></td>
         <td><%= out_history.ip %></td>

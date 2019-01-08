@@ -23,7 +23,7 @@
   <tbody>
     <% @article_out_counts.each do |article_out_count| %>
       <tr>
-        <td><%= article_out_count.last_time.strftime("%y-%m-%d %H:%M:%S") %></td>
+        <td><%= article_out_count.last_time&.localtime %></td>
         <td><%= article_out_count.article&.name %></td>
         <td><%= article_out_count.count.to_s(:delimited) %></td>
         <td><%= link_to 'Show', admin_article_out_count_path(article_out_count) %></td>

@@ -71,7 +71,7 @@ namespace :moudamepo do
   def sites(page) # (page = 1 - 8)
     result = ''
     cnt = 1;
-    count_date = Time.new.yesterday.strftime("%Y%m%d")
+    count_date = Time.new.yesterday.strftime("%Y%m%d") # It is in localtime.
     fetch_as_doc(page).xpath("//table[@class='bloginfo']").each do |node|
       name = node.xpath(".//a[@class='blogname']").inner_text
       url = node.xpath(".//a[@class='blogname']").attribute('href').text
@@ -91,10 +91,13 @@ namespace :moudamepo do
       else
         STDERR.print "SUCCESS: " + name + ": " + url + "\n"
       end
+      # Time.new.to_s contains timezone info
       result += "s = Site.create(:name => %q#" + name + "#, \n  :url => '" + url +
         "', \n  :category_id => category_name_binds['" + category_name +
-        "'], \n  :feed_url => '"+feed_url+"',\n  :thumbnail_url => '" + thumbnail_url + "',\n  :icon_url => '" + icon_url + "')\n"
-      # Insert to yesterday
+        "'], \n  :feed_url => '"+feed_url+"',\n  :thumbnail_url => '" + thumbnail_url +
+#       "',\n  :icon_url => '" + icon_url + "', \n  :last_post_time => '" + Time.new.to_s + "')\n"
+        "',\n  :icon_url => '" + icon_url + "')\n"
+      # Insert to yesterday(localtime)
       result += "DailyInCount.create(:count_date => " + count_date +
         ", :site_id => s.id, :count => " + in_count + ")\n"
       result += "DailyOutCount.create(:count_date => " + count_date +
