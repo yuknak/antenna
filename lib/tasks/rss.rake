@@ -15,9 +15,17 @@ namespace :rss do
   def fetch
     Site.all.each { |site|
       begin
+      # TODO:
+      # http://animalch.net/feed
+      # Cannot parse correctly: "<pubDate>Tue, 08 Jan 2019 10:34:38 0</pubDate>"
+      # Maybe this is a glich of the site.
+      # This is a quick hack only for JP, forcibly parsing as JST(+0900) zone.
+      xml = Faraday.get(site.feed_url).body
+      xml.gsub!(/ 0<\/pubDate>/," +0900</pubDate>")
       #feed.title,feed.url,feed.last_modified are available
-      feed = Feedjira::Feed.fetch_and_parse(site.feed_url)
-      # TODO: sometimes feed.last_modified seems to be zero(1970/1/1...)
+      feed = Feedjira::Feed.parse xml
+      # TODO: feed.last_modified seems to be zero(1970/1/1...)
+      # http://tuccom.com/feed
       if (site.last_post_time.blank? ||
         site.last_post_time < feed.last_modified) then
         feed.entries.each { |entry|
@@ -51,6 +59,17 @@ namespace :rss do
     } # Site.all.each
   end # fetch
 
+  def test
+    url = ""
+    xml = Faraday.get(url).body
+    feed = Feedjira::Feed.parse xml
+    feed.entries.each { |entry|
+        STDERR.print entry.title + "\n"
+        STDERR.print entry.url + "\n"
+        STDERR.print entry.published.to_s + "\n"
+    }
+  end
+
   end # refine(top_level.singleton_class) do
   }   # using Module.new {
 
@@ -58,7 +77,8 @@ namespace :rss do
 
   task fetch: :environment do |task, args|
 
-    fetch;
+    fetch
+    #test
 
   end
 
