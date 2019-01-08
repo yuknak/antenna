@@ -22,15 +22,17 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
   end
 
   create_table "articles", force: :cascade do |t|
+    t.integer "category_id", limit: 4, null: false
     t.integer "site_id", limit: 4, null: false
     t.datetime "post_time"
     t.string "name", limit: 255, null: false
     t.string "url", limit: 65535
     t.datetime "pull_time", null: false
     t.string "chkd", limit: 255
+    t.index ["category_id", "post_time"], name: "index_articles_on_category_id_and_post_time"
+    t.index ["category_id", "site_id", "post_time"], name: "index_articles_on_category_id_and_site_id_and_post_time"
     t.index ["chkd"], name: "index_articles_on_chkd", unique: true
     t.index ["post_time"], name: "index_articles_on_post_time"
-    t.index ["site_id", "post_time"], name: "index_articles_on_site_id_and_post_time"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -83,6 +85,14 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.string "thumbnail_url", limit: 65535
     t.string "icon_url", limit: 65535
     t.datetime "last_post_time"
+    t.integer "week_in_count", limit: 4, default: 0, null: false
+    t.integer "week_out_count", limit: 4, default: 0, null: false
+    t.integer "lastweek_in_count", limit: 4, default: 0, null: false
+    t.integer "lastweek_out_count", limit: 4, default: 0, null: false
+    t.integer "week_ranking", limit: 4, default: 0, null: false
+    t.integer "lastweek_ranking", limit: 4, default: 0, null: false
+    t.integer "category_week_ranking", limit: 4, default: 0, null: false
+    t.integer "category_lastweek_ranking", limit: 4, default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sites_on_category_id"

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'top#index'
-  get 'about', to: 'about#index'
+  get '/about', to: 'about#index'
   namespace :admin do
     root 'top#index'
     resources :daily_out_counts
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :sites
     resources :categories
     resources :article_out_counts
-    end
+  end
+  get '/:id', to: 'top#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

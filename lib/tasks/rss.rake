@@ -16,6 +16,8 @@ namespace :rss do
     Site.all.each { |site|
       begin
       # TODO:
+      # No valid parser for XML. error.
+      # TODO:
       # http://animalch.net/feed
       # Cannot parse correctly: "<pubDate>Tue, 08 Jan 2019 10:34:38 0</pubDate>"
       # Maybe this is a glich of the site.
@@ -43,6 +45,7 @@ namespace :rss do
             article.url = entry.url
             article.name = entry.title
             article.pull_time = Time.new
+            article.category_id = site.category_id
             article.save! 
           rescue => e
             print STDERR.print(e.message + "\n")

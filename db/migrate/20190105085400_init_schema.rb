@@ -39,11 +39,20 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.string   "thumbnail_url", limit: 65535
         t.string   "icon_url", limit: 65535
         t.datetime "last_post_time"
+        t.integer  "week_in_count", limit: 4, null: false, default: 0
+        t.integer  "week_out_count", limit: 4, null: false, default: 0
+        t.integer  "lastweek_in_count", limit: 4, null: false, default: 0
+        t.integer  "lastweek_out_count", limit: 4, null: false, default: 0
+        t.integer  "week_ranking", limit: 4, null: false, default: 0
+        t.integer  "lastweek_ranking", limit: 4, null: false, default: 0
+        t.integer  "category_week_ranking", limit: 4, null: false, default: 0
+        t.integer  "category_lastweek_ranking", limit: 4, null: false, default: 0
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end
       add_index "sites", ["category_id"], name: "index_sites_on_category_id", using: :btree
       create_table "articles", force: :cascade do |t|
+        t.integer  "category_id", limit: 4, null: false
         t.integer  "site_id", limit: 4, null: false
         t.datetime "post_time"
         t.string   "name", limit: 255, null: false
@@ -52,7 +61,8 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.string   "chkd", limit: 255
       end
       add_index "articles", ["post_time"], name: "index_articles_on_post_time", using: :btree
-      add_index "articles", ["site_id","post_time"], name: "index_articles_on_site_id_and_post_time", using: :btree
+      add_index "articles", ["category_id","site_id","post_time"], name: "index_articles_on_category_id_and_site_id_and_post_time", using: :btree
+      add_index "articles", ["category_id","post_time"], name: "index_articles_on_category_id_and_post_time", using: :btree
       add_index "articles", ["chkd"], name: "index_articles_on_chkd", unique: true, using: :btree
       create_table "in_histories", force: :cascade do |t|
         t.datetime "rec_time", null: false
@@ -94,7 +104,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
       add_index "article_out_counts", ["last_time"], name: "index_article_out_counts_on_last_time", using: :btree
       add_index "article_out_counts", ["count"], name: "index_article_out_counts_on_count", using: :btree
     end
-    def down
+  def down
       raise ActiveRecord::IrreversibleMigration, "The initial migration is not revertable"
     end
   end
