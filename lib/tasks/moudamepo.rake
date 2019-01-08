@@ -91,12 +91,14 @@ namespace :moudamepo do
       else
         STDERR.print "SUCCESS: " + name + ": " + url + "\n"
       end
-      # Time.new.to_s contains timezone info
+      match_in_url  = URI.parse(url).host
+      if match_in_url == "blog.livedoor.jp" then
+        match_in_url += ("/" + URI.parse(url).path.split("/")[1])
+      end
       result += "s = Site.create(:name => %q#" + name + "#, \n  :url => '" + url +
         "', \n  :category_id => category_name_binds['" + category_name +
         "'], \n  :feed_url => '"+feed_url+"',\n  :thumbnail_url => '" + thumbnail_url +
-#       "',\n  :icon_url => '" + icon_url + "', \n  :last_post_time => '" + Time.new.to_s + "')\n"
-        "',\n  :icon_url => '" + icon_url + "')\n"
+        "',\n  :icon_url => '" + icon_url + "', \n  :match_in_url => '" + match_in_url + "')\n"
       # Insert to yesterday(localtime)
       result += "DailyInCount.create(:count_date => " + count_date +
         ", :site_id => s.id, :count => " + in_count + ")\n"

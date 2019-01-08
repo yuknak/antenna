@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "check_cookies", force: :cascade do |t|
+    t.string "hash", limit: 255, null: false
+    t.datetime "last_time", null: false
+    t.index ["hash"], name: "index_check_cookies_on_hash", unique: true
+  end
+
+  create_table "check_ips", force: :cascade do |t|
+    t.string "ip", limit: 255, null: false
+    t.datetime "last_time", null: false
+    t.index ["ip"], name: "index_check_ips_on_ip", unique: true
+  end
+
   create_table "daily_in_counts", force: :cascade do |t|
     t.integer "count_date", limit: 4, null: false
     t.integer "site_id", limit: 4, null: false
@@ -56,27 +68,6 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.index ["count_date", "count"], name: "index_daily_out_counts_on_count_date_and_count"
   end
 
-  create_table "in_histories", force: :cascade do |t|
-    t.datetime "rec_time", null: false
-    t.integer "site_id", limit: 4, null: false
-    t.string "referer", limit: 65535
-    t.string "ip", limit: 255
-    t.string "chkd", limit: 255
-    t.string "request_line", limit: 65535
-    t.index ["rec_time"], name: "index_in_histories_on_rec_time"
-    t.index ["site_id", "rec_time"], name: "index_in_histories_on_site_id_and_rec_time"
-  end
-
-  create_table "out_histories", force: :cascade do |t|
-    t.datetime "rec_time", null: false
-    t.integer "site_id", limit: 4, null: false
-    t.integer "article_id", limit: 4
-    t.string "ip", limit: 255
-    t.string "chkd", limit: 255
-    t.index ["rec_time"], name: "index_out_histories_on_rec_time"
-    t.index ["site_id", "rec_time"], name: "index_out_histories_on_site_id_and_rec_time"
-  end
-
   create_table "sites", force: :cascade do |t|
     t.integer "category_id", limit: 4, null: false
     t.string "name", limit: 255, null: false
@@ -85,6 +76,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.string "thumbnail_url", limit: 65535
     t.string "icon_url", limit: 65535
     t.datetime "last_post_time"
+    t.string "match_in_url", limit: 65535
     t.integer "week_in_count", limit: 4, default: 0, null: false
     t.integer "week_out_count", limit: 4, default: 0, null: false
     t.integer "lastweek_in_count", limit: 4, default: 0, null: false
@@ -96,6 +88,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sites_on_category_id"
+    t.index ["match_in_url"], name: "index_sites_on_match_in_url", unique: true
   end
 
 end

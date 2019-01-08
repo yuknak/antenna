@@ -48,7 +48,7 @@
 <div id="headline">
 <table class="hl">
 <tr><td colspan="5" height="16" align="center" valign="top" bgcolor="#444444">
-<span style="font-size:10pt;">最新記事情報 - <%= Article.order('pull_time desc').limit(1)[0].pull_time.localtime.strftime("%m/%d %H:%M") %></span>
+<span style="font-size:10pt;">最新記事情報 - <%= Article.order('pull_time desc').limit(1)[0].pull_time&.localtime&.strftime("%m/%d %H:%M") %></span>
 </td></tr>
 <!--FRESH_ENTRY-->
 

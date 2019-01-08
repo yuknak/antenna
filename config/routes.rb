@@ -5,8 +5,6 @@ Rails.application.routes.draw do
     root 'top#index'
     resources :daily_out_counts
     resources :daily_in_counts
-    resources :out_histories
-    resources :in_histories
     resources :articles
     resources :sites
     resources :categories

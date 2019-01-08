@@ -16,19 +16,18 @@
       <th>Last time</th>
       <th>Article</th>
       <th>Count</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @article_out_counts.each do |article_out_count| %>
       <tr>
-        <td><%= article_out_count.last_time&.localtime %></td>
+        <td><%= article_out_count.last_time&.strftime("%m/%d %H:%M") %></td>
         <td><%= article_out_count.article&.name %></td>
         <td><%= article_out_count.count.to_s(:delimited) %></td>
-        <td><%= link_to 'Show', admin_article_out_count_path(article_out_count) %></td>
         <td><%= link_to 'Edit', edit_admin_article_out_count_path(article_out_count) %></td>
-        <td><%= link_to 'Destroy', admin_article_out_count_path(article_out_count), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Del', admin_article_out_count_path(article_out_count), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
