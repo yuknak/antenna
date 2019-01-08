@@ -48,7 +48,7 @@
 <div id="headline">
 <table class="hl">
 <tr><td colspan="5" height="16" align="center" valign="top" bgcolor="#444444">
-<span style="font-size:10pt;">最新記事情報 - 01/00 00:00</span>
+<span style="font-size:10pt;">最新記事情報 - <%= Article.order('pull_time desc').limit(1)[0].pull_time.localtime.strftime("%m/%d %H:%M") %></span>
 </td></tr>
 <!--FRESH_ENTRY-->
 
@@ -78,7 +78,7 @@
 <br>
 
 <div style="width:950px;margin:0px auto;padding:5px 0px;background-color:#333333;border:1px solid #666666;font-size:10pt;">
-[00/00] 現在、最新記事情報のテスト表示中。それ以外の表示内容は基本的にフェイクです--; (by yn)
+[01/08] 現在、最新記事情報のテスト表示中。それ以外の表示内容は基本的にフェイクです--; (by yn)
 </div>
 
 <br>
