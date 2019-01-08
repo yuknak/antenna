@@ -4,7 +4,8 @@ class Admin::SitesController < Admin::Base
   # GET /sites
   # GET /sites.json
   def index
-    @sites = Site.page(params[:page]).per(20)
+    @search = Site.search(params[:q])
+    @sites = @search.result.page(params[:page]).per(20)
   end
 
   # GET /sites/1

@@ -4,7 +4,8 @@ class Admin::CategoriesController < Admin::Base
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.page(params[:page]).per(20)
+    @search = Category.search(params[:q])
+    @categories = @search.result.page(params[:page]).per(20)
   end
 
   # GET /categories/1
