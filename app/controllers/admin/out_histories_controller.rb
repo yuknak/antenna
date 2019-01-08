@@ -4,7 +4,7 @@ class Admin::OutHistoriesController < Admin::Base
   # GET /out_histories
   # GET /out_histories.json
   def index
-    @out_histories = OutHistory.page(params[:page]).per(20)
+    @out_histories = OutHistory.order('rec_time desc').page(params[:page]).per(20)
   end
 
   # GET /out_histories/1

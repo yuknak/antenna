@@ -4,7 +4,7 @@ class Admin::InHistoriesController < Admin::Base
   # GET /in_histories
   # GET /in_histories.json
   def index
-    @in_histories = InHistory.page(params[:page]).per(20)
+    @in_histories = InHistory.order('rec_time desc').page(params[:page]).per(20)
   end
 
   # GET /in_histories/1

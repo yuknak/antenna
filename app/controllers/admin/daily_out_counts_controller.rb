@@ -4,7 +4,7 @@ class Admin::DailyOutCountsController < Admin::Base
   # GET /daily_out_counts
   # GET /daily_out_counts.json
   def index
-    @daily_out_counts = DailyOutCount.page(params[:page]).per(20)
+    @daily_out_counts = DailyOutCount.order('count_date desc, count desc').page(params[:page]).per(20)
   end
 
   # GET /daily_out_counts/1

@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.integer "article_id", limit: 4, null: false
     t.integer "count", limit: 4, default: 0, null: false
     t.index ["article_id"], name: "index_article_out_counts_on_article_id"
+    t.index ["count"], name: "index_article_out_counts_on_count"
+    t.index ["last_time"], name: "index_article_out_counts_on_last_time"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -27,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.datetime "pull_time", null: false
     t.string "chkd", limit: 255
     t.index ["chkd"], name: "index_articles_on_chkd", unique: true
+    t.index ["post_time"], name: "index_articles_on_post_time"
     t.index ["site_id", "post_time"], name: "index_articles_on_site_id_and_post_time"
   end
 
@@ -41,14 +44,14 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.integer "count_date", limit: 4, null: false
     t.integer "site_id", limit: 4, null: false
     t.integer "count", limit: 4, default: 0, null: false
-    t.index ["count_date"], name: "index_daily_in_counts_on_count_date"
+    t.index ["count_date", "count"], name: "index_daily_in_counts_on_count_date_and_count"
   end
 
   create_table "daily_out_counts", force: :cascade do |t|
     t.integer "count_date", limit: 4, null: false
     t.integer "site_id", limit: 4, null: false
     t.integer "count", limit: 4, default: 0, null: false
-    t.index ["count_date"], name: "index_daily_out_counts_on_count_date"
+    t.index ["count_date", "count"], name: "index_daily_out_counts_on_count_date_and_count"
   end
 
   create_table "in_histories", force: :cascade do |t|
@@ -58,6 +61,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.string "ip", limit: 255
     t.string "chkd", limit: 255
     t.string "request_line", limit: 65535
+    t.index ["rec_time"], name: "index_in_histories_on_rec_time"
     t.index ["site_id", "rec_time"], name: "index_in_histories_on_site_id_and_rec_time"
   end
 
@@ -67,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.integer "article_id", limit: 4
     t.string "ip", limit: 255
     t.string "chkd", limit: 255
+    t.index ["rec_time"], name: "index_out_histories_on_rec_time"
     t.index ["site_id", "rec_time"], name: "index_out_histories_on_site_id_and_rec_time"
   end
 

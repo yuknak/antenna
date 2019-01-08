@@ -4,7 +4,7 @@ class Admin::ArticlesController < Admin::Base
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.page(params[:page]).per(20)
+    @articles = Article.order('post_time desc').page(params[:page]).per(20)
   end
 
   # GET /articles/1

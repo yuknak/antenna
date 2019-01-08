@@ -51,6 +51,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.datetime "pull_time", null: false
         t.string   "chkd", limit: 255
       end
+      add_index "articles", ["post_time"], name: "index_articles_on_post_time", using: :btree
       add_index "articles", ["site_id","post_time"], name: "index_articles_on_site_id_and_post_time", using: :btree
       add_index "articles", ["chkd"], name: "index_articles_on_chkd", unique: true, using: :btree
       create_table "in_histories", force: :cascade do |t|
@@ -61,6 +62,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.string   "chkd", limit: 255
         t.string   "request_line", limit: 65535
       end
+      add_index "in_histories", ["rec_time"], name: "index_in_histories_on_rec_time", using: :btree
       add_index "in_histories", ["site_id","rec_time"], name: "index_in_histories_on_site_id_and_rec_time", using: :btree
       create_table "out_histories", force: :cascade do |t|
         t.datetime "rec_time", null: false
@@ -69,25 +71,28 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.string   "ip", limit: 255
         t.string   "chkd", limit: 255
       end
+      add_index "out_histories", ["rec_time"], name: "index_out_histories_on_rec_time", using: :btree
       add_index "out_histories", ["site_id","rec_time"], name: "index_out_histories_on_site_id_and_rec_time", using: :btree
       create_table "daily_in_counts", force: :cascade do |t|
         t.integer  "count_date", limit: 4, null: false
         t.integer  "site_id", limit: 4, null: false
         t.integer  "count", limit: 4, null: false, default: 0
       end
-      add_index "daily_in_counts", ["count_date"], name: "index_daily_in_counts_on_count_date", using: :btree
+      add_index "daily_in_counts", ["count_date","count"], name: "index_daily_in_counts_on_count_date_and_count", using: :btree
       create_table "daily_out_counts", force: :cascade do |t|
         t.integer  "count_date", limit: 4, null: false
         t.integer  "site_id", limit: 4, null: false
         t.integer  "count", limit: 4, null: false, default: 0
       end
-      add_index "daily_out_counts", ["count_date"], name: "index_daily_out_counts_on_count_date", using: :btree
+      add_index "daily_out_counts", ["count_date","count"], name: "index_daily_out_counts_on_count_date_and_count", using: :btree
       create_table "article_out_counts", force: :cascade do |t|
         t.datetime "last_time", null: false
         t.integer  "article_id", limit: 4, null: false
         t.integer  "count", limit: 4, null: false, default: 0
       end
       add_index "article_out_counts", ["article_id"], name: "index_article_out_counts_on_article_id", using: :btree
+      add_index "article_out_counts", ["last_time"], name: "index_article_out_counts_on_last_time", using: :btree
+      add_index "article_out_counts", ["count"], name: "index_article_out_counts_on_count", using: :btree
     end
     def down
       raise ActiveRecord::IrreversibleMigration, "The initial migration is not revertable"

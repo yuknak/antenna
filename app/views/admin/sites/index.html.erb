@@ -13,6 +13,7 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Category</th>
       <th>Icon</th>
       <th>Thumbnail</th>
@@ -25,6 +26,7 @@
   <tbody>
     <% @sites.each do |site| %>
       <tr>
+        <td><%= site.id %></td>
         <td><%= if site.category&.icon_url.present? then image_tag site.category&.icon_url else "N/A" end %>
         <br/><%= site.category&.name %></td>
         <td><%= image_tag site.icon_url %></td>
