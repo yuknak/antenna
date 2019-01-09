@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'top#index'
   get '/about', to: 'about#index'
   get '/out', to: 'out#index'
+  get '/old', to: 'old#index'
   namespace :admin do
     root 'top#index'
     resources :daily_out_counts
