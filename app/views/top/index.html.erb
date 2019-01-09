@@ -78,20 +78,57 @@
 <br>
 
 <div style="width:950px;margin:0px auto;padding:5px 0px;background-color:#333333;border:1px solid #666666;font-size:10pt;">
-[01/08] 現在、最新記事情報のテスト表示中。それ以外の表示内容は基本的にフェイクです--; (by yn)
+[01/09] 現在、各種テスト表示中。IN/OUTの集計とランキング機能はまだ動作していません--; (by yn)
 </div>
 
 <br>
 
-<!--
+<% i = 0 %>
+<% @sites.each do |site| %>
+<% articles = @site_articles.shift %>
 <table align="center" class="bloginfo">
+    <tr>
+        <td height="30" colspan="3" class="summary">
+            <div class="rank">
+                <img src="<%= site.icon_url %>" alt="f" class="va"> 
+                    <span style="font-size:12pt;"><%= i += 1 %> 位 (→)</span>
+            </div>
+            <div class="rank_name">
+                <img src="<%= site.category&.icon_url %>" alt="<%= site.category&.name %>" class="va"> 
+                    <a href="/out?s=<%= site.id %>&u=<%= site.url %>" class="blogname"> <%= site.name %></a> 
+                    <a href="#" style="font-size:8pt;">[一覧]</a>
+            </div>
+            <div class="rank_inout"><%= site.week_in_count %> in / <%= site.week_out_count %> out</div>
+            <div class="clear"></div>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="6" width="120">
+            <a href="/out?s=<%= site.id %>&u=<%= site.url %>">
+                <img title=" <%= site.name %>" src="<%= site.thumbnail_url %>" width="120" height="120">
+            </a>
+        </td>
+    </tr>
+<% articles.each do |article| %>
+    <tr>
+        <td class="date"><%= article.post_time&.localtime&.strftime("%m/%d %H:%M") %></td>
+        <td class="title">
+            <div class="entry">
+                <div class="entry_bar">
+                    <img src="http://moudamepo.com/img/bar.png" alt="bar" width="99%" height="24">
+                </div>
+                <div class="entry_text">
+                    <a href="/out?s=<%= article.site&.id %>&a=<%= article.id %>&u=<%= article.url %>" class="title"><%= article.name %></a>
+                </div>
+            </div>
+        </td>
+    </tr>
+<% end %>
 </table>
-<br>
-<table align="center" class="bloginfo">
-</table>
--->
+<br/>
+<% end %>
 
-<br><br>
+<br>
 
 </div>
 
@@ -103,6 +140,7 @@
 ●rz
 </div>
 <ul class="nl clearFix">
+<!--
 <li class="off"><a href="/" target="_self">1-25位</a></li>
 <li class="off"><a href="/" target="_self">26-50位</a></li>
 <li class="off"><a href="/" target="_self">51-75位</a></li>
@@ -111,6 +149,7 @@
 <li class="off"><a href="/" target="_self">126-150位</a></li>
 <li class="off"><a href="/" target="_self">151-175位</a></li>
 <li class="off"><a href="/" target="_self">176-200位</a></li>
+-->
 <li class="off">&nbsp;</li>
 <li class="off"><a href="/about" target="_self">About</a></li>
 </ul>
