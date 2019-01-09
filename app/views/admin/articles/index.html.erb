@@ -14,21 +14,22 @@
   <thead>
     <tr>
       <th>Post time</th>
+      <th>Category</th>
       <th>Site/Name</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @articles.each do |article| %>
       <tr>
-        <td><%= article.post_time&.localtime %></td>
+        <td><%= article.post_time&.localtime&.strftime("%m/%d %H:%M") %></td>
+        <td><%= if article.category&.icon_url.present? then image_tag article.category&.icon_url else "N/A" end %>
         <td><%= if article.site&.icon_url.present? then image_tag article.site&.icon_url else "N/A" end %>
         <%= article.site&.name %><br/>
         <%= link_to article.name, article.url %></td>
-        <td><%= link_to 'Show', admin_article_path(article) %></td>
         <td><%= link_to 'Edit', edit_admin_article_path(article) %></td>
-        <td><%= link_to 'Destroy', admin_article_path(article), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Del', admin_article_path(article), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

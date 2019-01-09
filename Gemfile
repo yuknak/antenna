@@ -61,3 +61,4 @@ gem 'nokogiri'
 gem 'kaminari', '~> 0.17.0'
 gem 'feedjira'
 gem 'whenever', require: false
+gem 'ransack'
