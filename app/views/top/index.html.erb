@@ -65,7 +65,7 @@
         <img src="<%= article.site&.icon_url %>" alt="f">
     </td>
     <td class="hl_n">
-        <a href="<%= article.site&.url %>"><%= article.site&.name %></a>
+        <a href="/out?s=<%= article.site&.id %>&u=<%= article.site&.url %>" class="hl"><%= article.site&.name %></a>
     </td>
     </tr>
 <% end %>
