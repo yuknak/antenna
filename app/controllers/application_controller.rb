@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   
-  before_action :process_daily_in_counts
+  after_action :process_daily_in_counts
 
   private def process_daily_in_counts
+    return if response.status != 200
     return if request.referer.blank?
     return if request.referer.index('http') != 0
     # Exclude from my domain
