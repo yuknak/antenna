@@ -37,8 +37,8 @@
         <td><%= site.id %></td>
         <td><%= if site.category&.icon_url.present? then image_tag site.category&.icon_url else "N/A" end %>
         <br/><%= site.category&.name %></td>
-        <td><%= image_tag site.icon_url %></td>
-        <td><%= image_tag site.thumbnail_url, :size => "32x32" %></td>
+        <td><%= if site.icon_url.present? then image_tag site.icon_url else "N/A" end %></td>
+        <td><%= if site.thumbnail_url.present? then image_tag site.thumbnail_url, :size => "32x32" else "N/A" end %></td>
         <td><%= link_to site.name, site.url, target: "_blank" %>
         <br/><%= link_to site.feed_url, site.feed_url, target: "_blank" %>
         <br/><%= site.match_in_url %></td>
