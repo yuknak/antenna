@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   
   after_action :process_daily_in_counts
+  before_action :basic
+  
+  private def basic
+      return if Rails.env == 'production'
+      authenticate_or_request_with_http_basic do |user, pass|
+        user == 'admin' && pass == 'admin'
+      end
+    end
 
   private def process_daily_in_counts
     return if response.status != 200
