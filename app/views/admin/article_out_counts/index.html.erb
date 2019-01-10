@@ -10,7 +10,7 @@
 <%= page_entries_info @article_out_counts %>
 </p>
 
-<table>
+<div class="table-responsive"><table class="table table-striped table-sm table-bordered table-hover">
   <thead>
     <tr>
       <th>Last time</th>
@@ -32,7 +32,7 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table></div><!-- table-responsive -->
 
 <p>
 <%= paginate @article_out_counts %>

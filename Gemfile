@@ -56,7 +56,7 @@ end
 
 # Added later by yuknak
 gem 'nokogiri'
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 1.1.1'
 gem 'feedjira'
 gem 'whenever', require: false
 gem 'ransack'

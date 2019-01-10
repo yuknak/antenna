@@ -18,8 +18,8 @@
 <%= page_entries_info @sites %>
 </p>
 
-<table>
-  <thead>
+<div class="table-responsive"><table class="table table-striped table-sm table-bordered table-hover">
+ <thead>
     <tr>
       <th><%= sort_link(@search, :id, "ID") %></th>
       <th><%= sort_link(@search, :category_id, "Category") %></th>
@@ -48,7 +48,7 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table></div><!-- table-responsive -->
 
 <p>
 <%= paginate @sites %>

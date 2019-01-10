@@ -10,7 +10,7 @@
 <%= page_entries_info @categories %>
 </p>
 
-<table>
+<div class="table-responsive"><table class="table table-striped table-sm table-bordered table-hover">
   <thead>
     <tr>
       <th><%= sort_link(@search, :id, "ID") %></th>
@@ -31,7 +31,7 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table></div><!-- table-responsive -->
 
 <p>
 <%= paginate @categories %>

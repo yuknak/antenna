@@ -1,43 +1,74 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ANTENNA - Admin console</title>
+    <title>ANTENNA - Admin</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'admin', 'data-turbolinks-track': 'reload' %>
   </head>
+  <body>
+
+<header>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <%= link_to "ANTENNA - Admin", admin_root_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExample05">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to 'Site', root_path,  class: "nav-link" %>
+      </li>
+      <li class="nav-item active">
+        <%= link_to 'Categories', admin_categories_path,  class: "nav-link" %>
+      </li>
+      <li class="nav-item active">
+          <%= link_to 'Sites', admin_sites_path,  class: "nav-link" %>
+      </li>
+      <li class="nav-item active">
+          <%= link_to 'Articles', admin_articles_path,  class: "nav-link" %>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Counts</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <%= link_to 'DailyInCounts', admin_daily_in_counts_path,  class: "dropdown-item" %>
+          <%= link_to 'DailyOutCounts', admin_daily_out_counts_path,  class: "dropdown-item" %>
+          <%= link_to 'ArticleOutCounts', admin_article_out_counts_path,  class: "dropdown-item" %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>
+
+<main role="main" >
+<div class="container">
+<%= yield %>
+</div>
+</main>
 
 <style>
-
+main > .container {
+  padding: 60px 15px 0;
+}
+.footer {
+  background-color: #f5f5f5;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+code {
+  font-size: 80%;
+}
 </style>
 
-  <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <h1><%= link_to "ANTENNA - Admin console", admin_root_path %></h1>
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
+<footer class="footer mt-auto py-3">
+  <div class="container">
+  <%= link_to 'PROJECT yuknak/ANTENNA', 'https://github.com/yuknak/antenna', target: "_blank", class: "text-muted" %>
+  </div>
+</footer>
 
-<li><%= link_to 'Categories', admin_categories_path %></li>
-<li><%= link_to 'Sites', admin_sites_path %></li>
-<li><%= link_to 'Articles', admin_articles_path %></li>
-<li><%= link_to 'DailyInCounts', admin_daily_in_counts_path %></li>
-<li><%= link_to 'DailyOutCounts', admin_daily_out_counts_path %></li>
-<li><%= link_to 'ArticleOutCounts', admin_article_out_counts_path %></li>
-
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <div class="container">
-      <%= yield %>
-    </div>
-    <footer>
-      <div class="container">
-      PROJECT <%= link_to 'yuknak/ANTENNA', 'https://github.com/yuknak/antenna', target: "_blank" %>
-      </div>
-    </footer>
   </body>
 </html>
