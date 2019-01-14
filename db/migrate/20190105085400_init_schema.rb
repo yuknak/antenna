@@ -27,27 +27,21 @@ class InitSchema < ActiveRecord::Migration[4.2]
     def up
       create_table "categories", force: :cascade do |t|
         t.string   "name", limit: 255, null: false
-        t.string   "icon_url", limit: 65535
+        t.string   "icon_url", limit: 2047
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end
       create_table "sites", force: :cascade do |t|
         t.integer  "category_id", limit: 4, null: false
         t.string   "name", limit: 255, null: false
-        t.string   "url", limit: 65535
-        t.string   "feed_url", limit: 65535
-        t.string   "thumbnail_url", limit: 65535
-        t.string   "icon_url", limit: 65535
+        t.string   "url", limit: 2047
+        t.string   "feed_url", limit: 2047
+        t.string   "thumbnail_url", limit: 2047
+        t.string   "icon_url", limit: 2047
         t.datetime "last_post_time"
-        t.string   "match_in_url", limit: 65535
+        t.string   "match_in_url", limit: 255
         t.integer  "week_in_count", limit: 4, null: false, default: 0
         t.integer  "week_out_count", limit: 4, null: false, default: 0
-        t.integer  "lastweek_in_count", limit: 4, null: false, default: 0
-        t.integer  "lastweek_out_count", limit: 4, null: false, default: 0
-        t.integer  "week_ranking", limit: 4, null: false, default: 0
-        t.integer  "lastweek_ranking", limit: 4, null: false, default: 0
-        t.integer  "category_week_ranking", limit: 4, null: false, default: 0
-        t.integer  "category_lastweek_ranking", limit: 4, null: false, default: 0
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end
@@ -58,7 +52,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.integer  "site_id", limit: 4, null: false
         t.datetime "post_time"
         t.string   "name", limit: 255, null: false
-        t.string   "url", limit: 65535
+        t.string   "url", limit: 2047
         t.datetime "pull_time", null: false
         t.string   "chkd", limit: 255
       end
@@ -76,12 +70,14 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.integer  "count_date", limit: 4, null: false
         t.integer  "site_id", limit: 4, null: false
         t.integer  "count", limit: 4, null: false, default: 0
+        t.integer  "week_count", limit: 4, null: false, default: 0
       end
       add_index "daily_out_counts", ["count_date","count"], name: "index_daily_out_counts_on_count_date_and_count", using: :btree
       create_table "article_out_counts", force: :cascade do |t|
         t.datetime "last_time", null: false
         t.integer  "article_id", limit: 4, null: false
         t.integer  "count", limit: 4, null: false, default: 0
+        t.integer  "week_count", limit: 4, null: false, default: 0
       end
       add_index "article_out_counts", ["article_id"], name: "index_article_out_counts_on_article_id", using: :btree
       add_index "article_out_counts", ["last_time"], name: "index_article_out_counts_on_last_time", using: :btree

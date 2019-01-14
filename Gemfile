@@ -62,3 +62,4 @@ gem 'whenever', require: false
 gem 'ransack'
 gem 'bootstrap', '~> 4.2.1'
 gem 'jquery-rails'
+gem 'mysql2'
