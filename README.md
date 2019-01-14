@@ -1,11 +1,10 @@
-# Ruby version
+# Versions
 
+* Ubuntu 18.04.1 LTS
 * ruby 2.4.5
 * bundler 1.17.1
 
 # Install sample
-
-## Ubuntu 18.4.1
 
 ```
 sudo apt update
@@ -15,7 +14,7 @@ sudo apt-get install -y libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev
 sudo apt-get install -y nodejs
 ```
 
-## CentOS 7.6 minimal
+CentOS 7.6 minimal(example)
 
 ```
 sudo yum -y install gcc-c++ glibc-headers openssl-devel readline
