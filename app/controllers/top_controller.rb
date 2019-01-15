@@ -1,5 +1,9 @@
 class TopController < ApplicationController
   
+  # To enable/disable caching in dev mode (default: disabled),
+  # run rails dev:cache to toggle caching.
+  # Also see in config/environments/*.rb
+
   private def cached_all_articles
     Rails.cache.fetch("/model/article/all", expired_in: 10.minutes) do
       Article.order('post_time desc').limit(150)

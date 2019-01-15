@@ -1,6 +1,7 @@
 # Versions
 
-* Ubuntu 18.04.1 LTS
+* Ubuntu 18.04 LTS
+* MySQL 5.7
 * ruby 2.4.5
 * bundler 1.17.1
 
@@ -31,8 +32,8 @@ sudo yum -y install bzip2
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.profile
+echo 'eval "$(rbenv init -)"' >> ~/.profile
 
 source ~/.bash_profile
 rbenv --version
