@@ -53,3 +53,5 @@ node_modules/
 
 #added later
 public/assets
+public/screenshot/*.jpg
+public/favicon/*.png

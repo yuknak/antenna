@@ -129,6 +129,10 @@ class TaskController < ApplicationController
         match_in_url += ("/" + URI.parse(url).path.split("/")[1])
       end
 
+      # Download images (only once)
+      download_image(icon_url,'favicon')
+      download_image(thumbnail_url,'screenshot')
+
       # Update site
       site = Site.find_or_initialize_by(
         ex_id: ex_id
@@ -137,8 +141,8 @@ class TaskController < ApplicationController
       site.url = url
       site.category_id = Category.where(name: category_name).first.id
       site.feed_url = feed_url
-      site.thumbnail_url = thumbnail_url
-      site.icon_url = icon_url
+      site.thumbnail_url = image_path(thumbnail_url, 'screenshot')
+      site.icon_url = image_path(icon_url, 'favicon')
       site.match_in_url = match_in_url
       site.save!
 
@@ -154,6 +158,23 @@ class TaskController < ApplicationController
       #break if (cnt > 2)
     end        
     result
+  end
+
+
+  private def image_path(url, dir)
+    ('/' + dir + '/' + File.basename(URI.parse(url).path))
+  end
+
+  private def download_image(url, dir)
+    outfname =
+      Rails.root.join(
+        'public', dir, File.basename(URI.parse(url).path))
+    return if File.exist?(outfname)
+    open(url, "r:binary") do |downf|
+      open(outfname, "w+b") do |outf|
+        outf.write(downf.read)
+      end
+    end
   end
 
   private def fetch_as_html(category_id = 1)
