@@ -24,7 +24,7 @@ namespace :task do
 
   task daily: :environment do |task, args|
 
-    Rails.logger = Logger.new("log/cron.log", 5, 5 * 1024 * 1024)
+    Rails.logger = Logger.new("log/task.log", 5, 5 * 1024 * 1024)
     Rails.logger.level = Logger::INFO
     TaskController.new.daily
 

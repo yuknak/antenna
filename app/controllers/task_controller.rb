@@ -266,7 +266,19 @@ class TaskController < ApplicationController
 
   def daily
     Rails.logger.info "task:daily start"
-    return unless check_db    
+    return unless check_db
+
+    # Move DailyWeight.weight to Site.weight
+    weight_date = Time.new.yesterday.strftime("%Y%m%d") # It is in localtime.
+    Site.all.each { |site|
+      weight = 
+        DailyWeight.where(
+            weight_date: weight_date, site_id: site.id)&.first&.weight
+      next if weight.blank?
+      site.weight = weight
+      site.save!
+    } 
+
     Rails.logger.info "task:daily end"
   rescue => e
     Rails.logger.error(e.message)

@@ -21,12 +21,12 @@ class TopController < ApplicationController
   end
   private def cached_all_sites
     Rails.cache.fetch("/model/site/all", expired_in: 10.minutes) do
-      Site.order('weight desc').limit(20)
+      Site.order('weight desc').limit(100)
     end
   end
   private def cached_catgory_id_sites
     Rails.cache.fetch("/model/site/category/#{@category_id}", expired_in: 10.minutes) do
-      Site.where(category_id: @category_id).order('weight desc').limit(20)
+      Site.where(category_id: @category_id).order('weight desc').limit(100)
     end
   end
 
