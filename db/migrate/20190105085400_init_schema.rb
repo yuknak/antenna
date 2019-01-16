@@ -21,9 +21,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.string   "icon_url", limit: 2047
         t.datetime "last_post_time"
         t.string   "match_in_url", limit: 255
-        t.integer  "week_in_count", limit: 4, null: false, default: 0
-        t.integer  "week_out_count", limit: 4, null: false, default: 0
-        t.integer  "week_weight", limit: 4, null: false, default: 0
+        t.integer  "weight", limit: 4, null: false, default: 0
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
       end
@@ -47,21 +45,18 @@ class InitSchema < ActiveRecord::Migration[4.2]
         t.integer  "count_date", limit: 4, null: false
         t.integer  "site_id", limit: 4, null: false
         t.integer  "count", limit: 4, null: false, default: 0
-        t.integer  "week_count", limit: 4, null: false, default: 0
       end
       add_index "daily_in_counts", ["count_date","count"], name: "index_daily_in_counts_on_count_date_and_count", using: :btree
       create_table "daily_out_counts", force: :cascade do |t|
         t.integer  "count_date", limit: 4, null: false
         t.integer  "site_id", limit: 4, null: false
         t.integer  "count", limit: 4, null: false, default: 0
-        t.integer  "week_count", limit: 4, null: false, default: 0
       end
       add_index "daily_out_counts", ["count_date","count"], name: "index_daily_out_counts_on_count_date_and_count", using: :btree
       create_table "daily_weights", force: :cascade do |t|
         t.integer  "weight_date", limit: 4, null: false
         t.integer  "site_id", limit: 4, null: false
         t.integer  "weight", limit: 4, null: false, default: 0
-        t.integer  "week_weight", limit: 4, null: false, default: 0
       end
       add_index "daily_weights", ["weight_date","weight"], name: "index_daily_weights_on_weight_date_and_weight", using: :btree
       create_table "article_out_counts", force: :cascade do |t|

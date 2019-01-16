@@ -143,7 +143,9 @@ class TaskController < ApplicationController
       site.feed_url = feed_url
       site.thumbnail_url = image_path(thumbnail_url, 'screenshot')
       site.icon_url = image_path(icon_url, 'favicon')
-      site.match_in_url = match_in_url
+      if site.match_in_url.blank? then
+        site.match_in_url = match_in_url
+      end
       site.save!
 
       # Update yesterday data(localtime)

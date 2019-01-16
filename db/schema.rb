@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.integer "count_date", null: false
     t.integer "site_id", null: false
     t.integer "count", default: 0, null: false
-    t.integer "week_count", default: 0, null: false
     t.index ["count_date", "count"], name: "index_daily_in_counts_on_count_date_and_count"
   end
 
@@ -68,7 +67,6 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.integer "count_date", null: false
     t.integer "site_id", null: false
     t.integer "count", default: 0, null: false
-    t.integer "week_count", default: 0, null: false
     t.index ["count_date", "count"], name: "index_daily_out_counts_on_count_date_and_count"
   end
 
@@ -76,7 +74,6 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.integer "weight_date", null: false
     t.integer "site_id", null: false
     t.integer "weight", default: 0, null: false
-    t.integer "week_weight", default: 0, null: false
     t.index ["weight_date", "weight"], name: "index_daily_weights_on_weight_date_and_weight"
   end
 
@@ -90,9 +87,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.string "icon_url", limit: 2047
     t.datetime "last_post_time"
     t.string "match_in_url"
-    t.integer "week_in_count", default: 0, null: false
-    t.integer "week_out_count", default: 0, null: false
-    t.integer "week_weight", default: 0, null: false
+    t.integer "weight", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sites_on_category_id"
