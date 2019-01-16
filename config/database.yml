@@ -13,7 +13,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: antenna_development
+  database: antenna_dev
   pool: 5
   username: ror 
   password: ror
@@ -33,7 +33,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: antenna_production
+  database: antenna_pro
   pool: 5
   username: ror 
   password: ror
