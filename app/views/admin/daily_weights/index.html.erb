@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Daily Weights</h1>
+
+<p>
+<%= link_to 'New Daily Weight', new_admin_daily_weight_path %>
+</p>
+
+<p>
+<%= page_entries_info @daily_weights %>
+</p>
+
+<div class="table-responsive"><table class="table table-striped table-sm table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Weight date</th>
+      <th>Site</th>
+      <th>Weight</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @daily_weights.each do |daily_weight| %>
+      <tr>
+        <td><%= dt = daily_weight.weight_date; sprintf("%02d/%02d",dt/100%100,dt%100) %></td>
+        <td><%= if daily_weight.site&.icon_url.present? then image_tag daily_weight.site&.icon_url else "N/A" end %>
+        <%= daily_weight.site&.name %></td>
+        <td><%= daily_weight.weight.to_s(:delimited) %></td>
+        <td><%= link_to 'Show', admin_daily_weight_path(daily_weight) %></td>
+        <td><%= link_to 'Del', admin_daily_weight_path(daily_weight), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table></div><!-- table-responsive -->
+<p>
+<%= paginate @daily_weights %>
+</p>

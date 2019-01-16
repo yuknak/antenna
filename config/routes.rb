@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/old', to: 'old#index'
   namespace :admin do
     root 'top#index'
+    resources :daily_weights
     resources :daily_out_counts
     resources :daily_in_counts
     resources :articles

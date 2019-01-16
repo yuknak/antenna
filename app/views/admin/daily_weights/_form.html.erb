@@ -1,0 +1,32 @@
+<%= form_for [:admin, daily_weight] do |form| %>
+  <% if daily_weight.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(daily_weight.errors.count, "error") %> prohibited this daily_weight from being saved:</h2>
+
+      <ul>
+      <% daily_weight.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :weight_date %>
+    <%= form.number_field :weight_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :site_id %>
+    <%= form.number_field :site_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weight_date %>
+    <%= form.number_field :weight %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

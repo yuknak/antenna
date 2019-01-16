@@ -26,7 +26,7 @@ namespace :moudamepo do
       icon_url = "http://sub.moudamepo.com/img/cate_" + category_id + ".png"
       if (/^\d+$/ =~ category_id)
         result += "Category.create(:name => '" + title + 
-          "',\n  :icon_url => '" + icon_url + "') # moudamepo's id = " + category_id + "\n"
+          "',\n  :icon_url => '" + icon_url + "', :ex_id => " + category_id + ")\n"
       end
     end        
     result
@@ -79,6 +79,8 @@ namespace :moudamepo do
       category_name = node.xpath(".//div[@class='rank_name']/img").attribute('alt').text
       icon_url = node.xpath(".//div[@class='rank']/img").attribute('src').text
       thumbnail_url = node.xpath(".//img[contains(@src, 'screenshot')]").attribute('src').text
+      ex_id = node.xpath(".//a[contains(@href, 'old.cgi')]").attribute('href').text
+      ex_id.sub!(/old.cgi\?/,"")
       in_count = node.xpath(".//div[@class='rank_inout']").inner_text
       in_count.sub!(/ in.+?$/,"")
       out_count = node.xpath(".//div[@class='rank_inout']").inner_text
@@ -98,12 +100,11 @@ namespace :moudamepo do
       result += "s = Site.create(:name => %q#" + name + "#, \n  :url => '" + url +
         "', \n  :category_id => category_name_binds['" + category_name +
         "'], \n  :feed_url => '"+feed_url+"',\n  :thumbnail_url => '" + thumbnail_url +
-        "',\n  :icon_url => '" + icon_url + "', \n  :match_in_url => '" + match_in_url + "')\n"
+        "',\n  :icon_url => '" + icon_url + "', \n  :match_in_url => '" + match_in_url + 
+        "', :ex_id => " + ex_id + ")\n"
       # Insert to yesterday(localtime)
-      result += "DailyInCount.create(:count_date => " + count_date +
-        ", :site_id => s.id, :count => " + in_count + ")\n"
-      result += "DailyOutCount.create(:count_date => " + count_date +
-        ", :site_id => s.id, :count => " + out_count + ")\n"
+      result += "DailyWeight.create(:weight_date => " + count_date +
+        ", :site_id => s.id, :weight => " + out_count + ")\n"
       cnt += 1
       #break if (cnt > 2)
     end        

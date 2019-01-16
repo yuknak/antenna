@@ -22,6 +22,7 @@
  <thead>
     <tr>
       <th><%= sort_link(@search, :id, "ID") %></th>
+      <th><%= sort_link(@search, :ex_id, "Ex ID") %></th>
       <th><%= sort_link(@search, :category_id, "Category") %></th>
       <th>Icon</th>
       <th>Thumbnail</th>
@@ -35,6 +36,7 @@
     <% @sites.each do |site| %>
       <tr>
         <td><%= site.id %></td>
+        <td><%= site.ex_id %></td>
         <td><%= if site.category&.icon_url.present? then image_tag site.category&.icon_url else "N/A" end %>
         <br/><%= site.category&.name %></td>
         <td><%= if site.icon_url.present? then image_tag site.icon_url else "N/A" end %></td>

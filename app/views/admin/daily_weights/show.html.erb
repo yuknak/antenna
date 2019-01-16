@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Weight date:</strong>
+  <%= @daily_weight.weight_date %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @daily_weight.site_id %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @daily_weight.weight %>
+</p>
+
+<%= link_to 'Edit', edit_admin_daily_weight_path(@daily_weight) %> |
+<%= link_to 'Back', admin_daily_weights_path %>
