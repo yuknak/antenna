@@ -1,74 +1,86 @@
-# encoding: utf-8
-
-# Rake command: rake moudamepo:fetch > db/seeds.rb
-# Generate db/seeds.rb
-# Fetching sample data from moudamepo.com
-# This file simply produces a ruby source file to STDOUT.
-
-require 'open-uri'
-require 'nokogiri'
-require 'kconv'
-
-namespace :moudamepo do
+class TaskController < ApplicationController
 
   BASEURL =  'http://moudamepo.com'
 
-  top_level = self
-  using Module.new {
-  refine(top_level.singleton_class) do
+  #############################################################################
 
-  def categories
-    result = ''
+  def article
+
+    unless Category.table_exists?
+      puts "Run \"rails db:create\" and \"rails db:migrate\"."
+      return
+    end
+
+    Site.all.each { |site|
+      begin
+      # TODO:
+      # No valid parser for XML. error.
+      # TODO:
+      # http://animalch.net/feed
+      # Cannot parse correctly: "<pubDate>Tue, 08 Jan 2019 10:34:38 0</pubDate>"
+      # Maybe this is a glich of the site.
+      # This is a quick hack only for JP, forcibly parsing as JST(+0900) zone.
+      xml = Faraday.get(site.feed_url).body
+      xml.gsub!(/ 0<\/pubDate>/," +0900</pubDate>")
+      #feed.title,feed.url,feed.last_modified are available
+      feed = Feedjira::Feed.parse xml
+      # TODO: feed.last_modified seems to be zero(1970/1/1...)
+      # http://tuccom.com/feed
+      if (site.last_post_time.blank? ||
+        site.last_post_time < feed.last_modified) then
+        feed.entries.each { |entry|
+          begin
+            STDERR.print entry.title + "\n"
+            STDERR.print entry.url + "\n"
+            STDERR.print entry.published.to_s + "\n"
+            # Unique key is made from article's url
+            md5hash = Digest::MD5.hexdigest(entry.url)
+            article = Article.find_or_initialize_by(
+              site_id: site.id,
+              post_time: entry.published,
+              chkd: md5hash
+            )
+            article.url = entry.url
+            article.name = entry.title
+            article.pull_time = Time.new
+            article.category_id = site.category_id
+            article.save! 
+          rescue => e
+            print STDERR.print(e.message + "\n")
+            next
+          end
+        }
+        # store last time
+        site.update(:last_post_time => feed.last_modified)
+      end # if last_modified
+      rescue => e
+        print STDERR.print(e.message + "\n")
+        next
+      end
+    } # Site.all.each
+  end # article
+
+  #############################################################################
+
+  private def categories
     fetch_as_doc().xpath('//ul/li/a').each do |node|
       title = node.inner_text
       category_id = node.attribute('href').text
       category_id.sub!(/\//,"")
       icon_url = "http://sub.moudamepo.com/img/cate_" + category_id + ".png"
       if (/^\d+$/ =~ category_id)
-        result += "Category.create(:name => '" + title + 
-          "',\n  :icon_url => '" + icon_url + "', :ex_id => " + category_id + ")\n"
+        category = Category.find_or_initialize_by(
+          ex_id: category_id
+        )
+        category.name = title
+        category.icon_url = icon_url
+        category.save!
       end
     end        
-    result
   end
-  
-  # We have to map moudamepo id to auto incremental id
-  def category_id_binds
-    cnt = 1;
-    result = "# Mapping for moudamepo.com id to autoincrement id.\n"
-    result += "category_id_binds = {\n"
-    fetch_as_doc().xpath('//ul/li/a').each do |node|
-      category_id = node.attribute('href').text
-      category_id.sub!(/\//,"")
-      if (/^\d+$/ =~ category_id)
-        result += "  " + category_id + " => " + cnt.to_s + ",\n"
-        cnt += 1;
-      end
-    end
-    result += "}\n"
-    result
-  end
-
-  # We have to map moudamepo name to auto incremental id
-  def category_name_binds
-    cnt = 1;
-    result = "# Mapping for moudamepo.com name to autoincrement id.\n"
-    result += "category_name_binds = {\n"
-    fetch_as_doc().xpath('//ul/li/a').each do |node|
-      name = node.inner_text
-      category_id = node.attribute('href').text
-      category_id.sub!(/\//,"")
-      if (/^\d+$/ =~ category_id)
-        result += "  '" + name + "' => " + cnt.to_s + ",\n"
-        cnt += 1;
-      end
-    end
-    result += "}\n"
-    result
-  end
-    
+      
   # Search toppage 1-8 for the information
-  def sites(page) # (page = 1 - 8)
+  private def sites(page) # (page = 1 - 8)
     result = ''
     cnt = 1;
     count_date = Time.new.yesterday.strftime("%Y%m%d") # It is in localtime.
@@ -94,17 +106,31 @@ namespace :moudamepo do
         STDERR.print "SUCCESS: " + name + ": " + url + "\n"
       end
       match_in_url  = URI.parse(url).host
-      if match_in_url == "blog.livedoor.jp" then
+      if match_in_url == "blog.livedoor.jp" then # Special handling
         match_in_url += ("/" + URI.parse(url).path.split("/")[1])
       end
-      result += "s = Site.create(:name => %q#" + name + "#, \n  :url => '" + url +
-        "', \n  :category_id => category_name_binds['" + category_name +
-        "'], \n  :feed_url => '"+feed_url+"',\n  :thumbnail_url => '" + thumbnail_url +
-        "',\n  :icon_url => '" + icon_url + "', \n  :match_in_url => '" + match_in_url + 
-        "', :ex_id => " + ex_id + ")\n"
-      # Insert to yesterday(localtime)
-      result += "DailyWeight.create(:weight_date => " + count_date +
-        ", :site_id => s.id, :weight => " + out_count + ")\n"
+
+      # Update site
+      site = Site.find_or_initialize_by(
+        ex_id: ex_id
+      )
+      site.name = name
+      site.url = url
+      site.category_id = Category.where(name: category_name).first.id
+      site.feed_url = feed_url
+      site.thumbnail_url = thumbnail_url
+      site.icon_url = icon_url
+      site.match_in_url = match_in_url
+      site.save!
+
+      # Update yesterday data(localtime)
+      daily_weight = DailyWeight.find_or_initialize_by(
+        weight_date: count_date,
+        site_id: site.id
+      )
+      daily_weight.weight = out_count
+      daily_weight.save!
+  
       cnt += 1
       #break if (cnt > 2)
     end        
@@ -178,20 +204,15 @@ namespace :moudamepo do
     feed_url
   end
 
-  end # refine(top_level.singleton_class) do
-  }   # using Module.new {
+  def site
 
-  desc "Making for seeds.rb fetching sample data from moudamepo.com."
-
-  task fetch: :environment do |task, args|
-
-    puts  "# Generated by lib/tasks/moudamepo.rake"
-    puts  "#  rake moudamepo:fetch > db/seeds.rb"
-    print "#  generated at ", Time.new, "\n\n"
-  
-    print categories
-    print category_name_binds
-    print category_id_binds
+    unless Category.table_exists?
+      puts "Run \"rails db:create\" and \"rails db:migrate\"."
+      return
+    end
+    
+    categories
+    
     endcnt = 8
     (1..endcnt).each { |n|
       STDERR.print "PROCESS: PAGE: " + n.to_s + "/" + endcnt.to_s + " ----------------\n"
@@ -200,5 +221,7 @@ namespace :moudamepo do
     }
 
   end
+
+  #############################################################################
 
 end
