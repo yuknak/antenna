@@ -12,6 +12,7 @@ class InitSchema < ActiveRecord::Migration[4.2]
       end
       add_index "categories", ["ex_id"], name: "index_categories_on_ex_id", unique: true, using: :btree
       create_table "sites", force: :cascade do |t|
+        t.integer  "enable", limit: 4, null: false, default: 0
         t.integer  "ex_id", limit: 4
         t.integer  "category_id", limit: 4, null: false
         t.string   "name", limit: 255, null: false

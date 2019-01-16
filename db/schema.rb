@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
   end
 
   create_table "sites", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "enable", default: 0, null: false
     t.integer "ex_id"
     t.integer "category_id", null: false
     t.string "name", null: false
