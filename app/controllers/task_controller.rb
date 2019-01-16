@@ -31,7 +31,8 @@ class TaskController < ApplicationController
 
     Site.all.each { |site|
       begin
-      #next if site.ex_id != 2160
+      site.enable = 1 # to be displayed
+      site.save!
       # TODO:
       # No valid parser for XML. error.
       # TODO:
@@ -64,8 +65,6 @@ class TaskController < ApplicationController
             article.pull_time = Time.new
             article.category_id = site.category_id
             article.save! 
-            site.enable = 1 # to be displayed
-            site.save!
           rescue => e
             Rails.logger.error(entry.title + ":" + e.message)
             next
