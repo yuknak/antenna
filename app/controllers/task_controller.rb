@@ -86,7 +86,7 @@ class TaskController < ApplicationController
       title = node.inner_text
       category_id = node.attribute('href').text
       category_id.sub!(/\//,"")
-      icon_url = "http://sub.moudamepo.com/img/cate_" + category_id + ".png"
+      icon_url = "/orz/cate_" + category_id + ".png"
       if (/^\d+$/ =~ category_id)
         category = Category.find_or_initialize_by(
           ex_id: category_id

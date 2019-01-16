@@ -1,0 +1,367 @@
+﻿@charset "utf-8";
+
+body{
+	height:100%;
+	margin: 0;
+	padding: 25px 0 25px 0;
+	background-color:#222222;
+	font-size:100.01%;
+	line-height:1.4;
+	color:#FFFFFF;
+	text-align:center;
+}
+
+* html body{
+	overflow: hidden;
+}
+
+img {
+	border:none;
+	margin:0;
+	padding:0;
+}
+
+a {
+	text-decoration:none;
+}
+a:link{
+	color: #CCFFFF;
+}
+a:visited{
+	color: #555555;
+}
+a:hover{
+	color: aqua;
+	text-decoration:underline;
+}
+a:active{
+	color: aqua;
+	background:#555555;
+}
+
+a.pickup{
+	display:block;
+	width:99%;
+	font-size:10pt;
+}
+a.hl{
+	display:block;
+	width:99%;
+	font-size:10pt;
+}
+a.headline{
+	display:block;
+	width:99%;
+	font-size:10pt;
+}
+
+a.title{
+	display:block;
+	width:99%;
+	font-size:10pt;
+	padding:2px 2px;
+}
+a.blogname{
+	color:#CCFFFF;
+	font-size:12pt;
+}
+a.blogname:visited{
+	color:#CCFFFF;
+}
+
+div.entry{
+	position:relative;
+	top:-2px;left:-2px;
+	height:22px;
+	width:680px;
+	text-align:left;
+}
+div.entry_bar{
+	position:absolute;
+	left:1px;
+	top:1px;
+	width:732px;
+}
+div.entry_text{
+	position:absolute;
+	top:4px;
+	left:4px;
+	width:730px;
+}
+
+div#header {
+	z-index:100;
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	background-color:#333333;
+	border-bottom:1px solid #222222;
+	color:#FFFFFF;
+}
+
+div#footer {
+	position: fixed !important;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	background-color:#333333;
+	border-top:1px solid #222222;
+	color:#FFFFFF;
+}
+
+div#headline {
+	border:solid #444444;
+	width:947px;
+	height:300px;
+	overflow:auto;
+	vertical-align:text-bottom;
+	line-height:10px;
+}
+
+* html div#contents{
+	height: 100%;
+	overflow: auto;
+}
+
+table.oldentry{
+	width:830px;
+	background-color:#333333;
+	border:solid 1px #666666;
+	border-collapse:collapse;
+	border-spacing:0;
+}
+table.bloginfo{
+	width:950px;
+	background-color:#333333;
+	border:solid 1px #666666;
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+table.hl{
+	width:917px;
+	background-color:#111111;
+	border-collapse:collapse;
+	border:none;
+	text-align:left;
+}
+table.hl tr:hover {
+	background-color:#333366;
+}
+
+tr.hl {
+	background-color:#111111;
+}
+tr.hl:hover {
+	background-color:#333366;
+}
+tr.hl_pkup {
+	background-color:#333366;
+}
+td.hl_d{
+	width:85px;
+	font-size:10pt;
+}
+td.hl_c{
+	width:55px;
+}
+td.hl_t{
+	width:550px;
+	font-size:10pt;
+}
+td.hl_f {
+	width:20px;
+}
+td.hl_n {
+	width:200px;
+	font-size:10pt;
+}
+
+td.date{
+	width:100px;
+	height:24xp;
+	margin:0;
+	padding:0;
+	text-align:center;
+	font-size:10pt;
+	background-color:#333333;
+	border:solid 1px #666666;
+}
+td.title{
+	background-color:#333333;
+	border:solid 1px #666666;
+}
+td.summary{
+	background-color:#333333;
+	border:solid 1px #666666;
+	font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック';
+}
+
+div.container {
+width: 950px; /* ナビゲーションの幅 */
+margin: 0 auto; /* センターに配置 */
+}
+
+div.damepo {
+	float:left;
+	width:120px;
+	height:20px;
+	text-align:center;
+	padding:5px 0px 0px 0px;
+	margin:0px;
+	font-size:10pt;
+	font-weight: bold;
+
+}
+
+div.rank {
+	width:120px;
+	padding:5px;
+	float:left;
+	font-weight:bold;
+	text-align:left;
+}
+div.rank_name {
+	width:620px;
+	padding:5px;
+	float:left;
+	text-align:left;
+}
+div.rank_inout{
+	width:160px;
+	padding:5px;
+	float:left;
+	font-size:10pt;
+	text-align:left;
+}
+.clear {
+	clear:both;
+}
+
+/* --- ナビゲーションバー 1 --- */
+div.nav1 {
+width: 100%; /* ナビゲーションの幅 */
+margin: 0 auto; /* センターに配置 */
+background: #333333 url(http://sub.moudamepo.com/img/head_off.png) repeat-x top; /* ナビゲーションの背景 */
+border-top: 2px #555555 solid; /* 上境界線 */
+border-bottom: 2px #555555 solid; /* 下境界線 */
+font-size: 80%;
+}
+
+/* --- メニューエリア --- */
+div.nav1 ul.nl {
+width: 800px; /* メニューの幅 */
+margin: 0 auto; /* センターに配置 */
+padding: 0;
+background: #333333 url(http://sub.moudamepo.com/img/head_off.png) repeat-x top; /* メニューの背景 */
+
+list-style-type: none;
+text-align: center;
+}
+
+/* --- メニュー項目 --- */
+div.nav1 ul.nl li.off {
+width: 65px; /* 項目の幅 */
+float: left;}
+
+div.nav1 ul.nl li.on {
+width: 65px; /* 項目の幅 */
+float: left;
+background: #444444 url(http://sub.moudamepo.com/img/head_on.png) repeat-x top; /* ポイント時の背景 */
+}
+div.nav1 ul.nl li.on a {
+color: #CCFFFF;
+}
+
+/* --- リンク --- */
+div.nav1 ul.nl li a {
+display: block;
+position: relative; /* IE6用 */
+padding: 7px 2px 4px; /* リンクエリアのパディング（上、左右、下） */
+border-left: 1px #555555 solid; /* リンクエリアの左境界線 */
+border-right: 1px #555555 solid; /* リンクエリアの右境界線 */
+text-decoration: none; /* テキストの下線（なし） */
+font-size :9pt;
+font-weight: bold; /* 文字の太さ（太字） */
+color: #ffffff; /* 文字色 */
+line-height: 100%; /* 行の高さ */
+}
+/* --- ポイント時の設定 --- */
+div.nav1 ul.nl li a:hover {
+color: #CCFFFF;
+text-decoration: underline;
+background: #444444 url(http://sub.moudamepo.com/img/head_on.png) repeat-x top; /* ポイント時の背景 */
+}
+
+/* --- ナビゲーションバー 2 --- */
+div.nav2 {
+width: 100%; /* ナビゲーションの幅 */
+margin: 0 auto; /* センターに配置 */
+background: #333333 url(http://sub.moudamepo.com/img/foot_off.png) repeat-x top; /* ナビゲーションの背景 */
+border-top: 2px #555555 solid; /* 上境界線 */
+border-bottom: 2px #555555 solid; /* 下境界線 */
+font-size: 80%;
+}
+
+/* --- メニューエリア --- */
+div.nav2 ul.nl {
+width: 800px; /* メニューの幅 */
+margin: 0 auto; /* センターに配置 */
+padding: 0;
+background: #333333 url(http://sub.moudamepo.com/img/foot_off.png) repeat-x top; /* メニューの背景 */
+list-style-type: none;
+text-align: center;
+}
+
+/* --- メニュー項目 --- */
+div.nav2 ul.nl li.off {
+width: 75px; /* 項目の幅 */
+float: left;
+}
+
+div.nav2 ul.nl li.on {
+width: 75px; /* 項目の幅 */
+float: left;
+background: #444444 url(http://sub.moudamepo.com/img/foot_on.png) repeat-x top; /* ポイント時の背景 */
+}
+div.nav2 ul.nl li.on a {
+color: #CCFFFF;
+}
+
+/* --- リンク --- */
+div.nav2 ul.nl li a {
+display: block;
+position: relative; /* IE6用 */
+padding: 7px 2px 4px; /* リンクエリアのパディング（上、左右、下） */
+border-left: 1px #555555 solid; /* リンクエリアの左境界線 */
+border-right: 1px #555555 solid; /* リンクエリアの右境界線 */
+text-decoration: none; /* テキストの下線（なし） */
+font-size :9pt;
+font-weight: bold; /* 文字の太さ（太字） */
+color: #ffffff; /* 文字色 */
+line-height: 100%; /* 行の高さ */
+}
+/* --- ポイント時の設定 --- */
+div.nav2 ul.nl li a:hover {
+background: #444444 url(http://moudamepo.com/img/foot_on.png) repeat-x top; /* ポイント時の背景 */
+color: #CCFFFF;
+text-decoration: underline;
+}
+
+/* --- clearfix --- */
+.clearFix:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+.clearFix {
+min-height: 1px;
+}
+
