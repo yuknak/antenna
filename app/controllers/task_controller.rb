@@ -1,15 +1,33 @@
+
+require 'open-uri'
+require 'kconv'
+require "feedjira"
+
 class TaskController < ApplicationController
 
+  #############################################################################
+
   BASEURL =  'http://moudamepo.com'
+
+  private def check_db
+    unless Category.table_exists?
+      puts "Table not found. See log/task.log file."
+      Rails.logger.fatal "You have to init db first. Run \"bundle exec rails db:migrate\"."
+      return false
+    end
+    true
+    rescue
+      puts "DB not found. See log/task.log file."
+      Rails.logger.fatal "You have to init db first. Run \"bundle exec rails db:create\"."
+      false
+  end
 
   #############################################################################
 
   def article
+    Rails.logger.info "task:article start"
 
-    unless Category.table_exists?
-      puts "Run \"rails db:create\" and \"rails db:migrate\"."
-      return
-    end
+    return unless check_db
 
     Site.all.each { |site|
       begin
@@ -30,9 +48,9 @@ class TaskController < ApplicationController
         site.last_post_time < feed.last_modified) then
         feed.entries.each { |entry|
           begin
-            STDERR.print entry.title + "\n"
-            STDERR.print entry.url + "\n"
-            STDERR.print entry.published.to_s + "\n"
+            Rails.logger.debug entry.title + "\n"
+            Rails.logger.debug entry.url + "\n"
+            Rails.logger.debug entry.published.to_s + "\n"
             # Unique key is made from article's url
             md5hash = Digest::MD5.hexdigest(entry.url)
             article = Article.find_or_initialize_by(
@@ -46,7 +64,7 @@ class TaskController < ApplicationController
             article.category_id = site.category_id
             article.save! 
           rescue => e
-            print STDERR.print(e.message + "\n")
+            Rails.logger.error(entry.title + ":" + e.message)
             next
           end
         }
@@ -54,10 +72,11 @@ class TaskController < ApplicationController
         site.update(:last_post_time => feed.last_modified)
       end # if last_modified
       rescue => e
-        print STDERR.print(e.message + "\n")
+        Rails.logger.error(site.name + ":" + e.message)
         next
       end
     } # Site.all.each
+    Rails.logger.info "task:article end"
   end # article
 
   #############################################################################
@@ -100,10 +119,10 @@ class TaskController < ApplicationController
       out_count.sub!(/^\d+? in \/ /,"")
       feed_url = fetch_feed_url(url)
       if feed_url.empty? then
-        STDERR.print "SKIPPED: feed_url not found: " + name + ": " + url + "\n"
+        Rails.logger.warn "SKIPPED: feed_url not found: " + name + ": " + url
         next
       else
-        STDERR.print "SUCCESS: " + name + ": " + url + "\n"
+        Rails.logger.debug "SUCCESS: " + name + ": " + url
       end
       match_in_url  = URI.parse(url).host
       if match_in_url == "blog.livedoor.jp" then # Special handling
@@ -204,22 +223,30 @@ class TaskController < ApplicationController
     feed_url
   end
 
-  def site
+  #----------------------------------------------------------------------------
 
-    unless Category.table_exists?
-      puts "Run \"rails db:create\" and \"rails db:migrate\"."
-      return
-    end
-    
+  def site
+    Rails.logger.info "task:site start"
+    return unless check_db
     categories
-    
     endcnt = 8
     (1..endcnt).each { |n|
-      STDERR.print "PROCESS: PAGE: " + n.to_s + "/" + endcnt.to_s + " ----------------\n"
-      print        "# Site PAGE: " + n.to_s + "/" + endcnt.to_s + " ----------------\n"
-      print sites(n)
+      Rails.logger.info "# Site PAGE: " + n.to_s + "/" + endcnt.to_s
+      sites(n)
     }
+    Rails.logger.info "task:site end"
+  rescue => e
+    Rails.logger.error(e.message)
+  end
 
+  #############################################################################
+
+  def daily
+    Rails.logger.info "task:daily start"
+    return unless check_db    
+    Rails.logger.info "task:daily end"
+  rescue => e
+    Rails.logger.error(e.message)
   end
 
   #############################################################################
