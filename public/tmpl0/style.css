@@ -247,7 +247,7 @@ div.rank_inout{
 div.nav1 {
 width: 100%; /* ナビゲーションの幅 */
 margin: 0 auto; /* センターに配置 */
-background: #333333 url(/site1/head_off.png) repeat-x top; /* ナビゲーションの背景 */
+background: #333333 url(/tmpl0/head_off.png) repeat-x top; /* ナビゲーションの背景 */
 border-top: 2px #555555 solid; /* 上境界線 */
 border-bottom: 2px #555555 solid; /* 下境界線 */
 font-size: 80%;
@@ -258,7 +258,7 @@ div.nav1 ul.nl {
 width: 800px; /* メニューの幅 */
 margin: 0 auto; /* センターに配置 */
 padding: 0;
-background: #333333 url(/site1/head_off.png) repeat-x top; /* メニューの背景 */
+background: #333333 url(/tmpl0/head_off.png) repeat-x top; /* メニューの背景 */
 
 list-style-type: none;
 text-align: center;
@@ -272,7 +272,7 @@ float: left;}
 div.nav1 ul.nl li.on {
 width: 65px; /* 項目の幅 */
 float: left;
-background: #444444 url(/site1/head_on.png) repeat-x top; /* ポイント時の背景 */
+background: #444444 url(/tmpl0/head_on.png) repeat-x top; /* ポイント時の背景 */
 }
 div.nav1 ul.nl li.on a {
 color: #CCFFFF;
@@ -295,14 +295,14 @@ line-height: 100%; /* 行の高さ */
 div.nav1 ul.nl li a:hover {
 color: #CCFFFF;
 text-decoration: underline;
-background: #444444 url(/site1/head_on.png) repeat-x top; /* ポイント時の背景 */
+background: #444444 url(/tmpl0/head_on.png) repeat-x top; /* ポイント時の背景 */
 }
 
 /* --- ナビゲーションバー 2 --- */
 div.nav2 {
 width: 100%; /* ナビゲーションの幅 */
 margin: 0 auto; /* センターに配置 */
-background: #333333 url(/site1/foot_off.png) repeat-x top; /* ナビゲーションの背景 */
+background: #333333 url(/tmpl0/foot_off.png) repeat-x top; /* ナビゲーションの背景 */
 border-top: 2px #555555 solid; /* 上境界線 */
 border-bottom: 2px #555555 solid; /* 下境界線 */
 font-size: 80%;
@@ -313,7 +313,7 @@ div.nav2 ul.nl {
 width: 800px; /* メニューの幅 */
 margin: 0 auto; /* センターに配置 */
 padding: 0;
-background: #333333 url(/site1/foot_off.png) repeat-x top; /* メニューの背景 */
+background: #333333 url(/tmpl0/foot_off.png) repeat-x top; /* メニューの背景 */
 list-style-type: none;
 text-align: center;
 }
@@ -327,7 +327,7 @@ float: left;
 div.nav2 ul.nl li.on {
 width: 75px; /* 項目の幅 */
 float: left;
-background: #444444 url(/site1/foot_on.png) repeat-x top; /* ポイント時の背景 */
+background: #444444 url(/tmpl0/foot_on.png) repeat-x top; /* ポイント時の背景 */
 }
 div.nav2 ul.nl li.on a {
 color: #CCFFFF;
@@ -348,7 +348,7 @@ line-height: 100%; /* 行の高さ */
 }
 /* --- ポイント時の設定 --- */
 div.nav2 ul.nl li a:hover {
-background: #444444 url(/site1/foot_on.png) repeat-x top; /* ポイント時の背景 */
+background: #444444 url(/tmpl0/foot_on.png) repeat-x top; /* ポイント時の背景 */
 color: #CCFFFF;
 text-decoration: underline;
 }
