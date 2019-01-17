@@ -50,9 +50,16 @@ class TaskController < ApplicationController
         site.last_post_time < feed.last_modified) then
         feed.entries.each { |entry|
           begin
-            Rails.logger.debug entry.title + "\n"
-            Rails.logger.debug entry.url + "\n"
-            Rails.logger.debug entry.published.to_s + "\n"
+            # Prohibit future(within 10min future allowed) post
+            if Time.new - entry.published < -600 then
+              Rails.logger.warn "Future post detected. didn't get:"
+              + entry.published.localtime.to_s + ":" + site.name + ":" + entry.title
+              next
+            end
+            Rails.logger.debug entry.title
+            #Rails.logger.debug entry.url
+            #Rails.logger.debug entry.published.localtime.to_s
+            #Rails.logger.debug (Time.new - entry.published).to_s
             # Unique key is made from article's url
             md5hash = Digest::MD5.hexdigest(entry.url)
             article = Article.find_or_initialize_by(
