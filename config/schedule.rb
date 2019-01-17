@@ -10,7 +10,7 @@ set :environment, rails_env
 # task log is log/task.log [->task.log.1-5]
 # see lib/tasks/task.rake
 
-every 10.minutes do
+every 15.minutes do
   rake "task:article"
 end
 
