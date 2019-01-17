@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
     count_date = Time.new.localtime.strftime("%Y%m%d")
     daily_in_count = DailyInCount.find_or_initialize_by(
       site_id: site_id,
+      repo_id: CONFIG['repo_id'],
       count_date: count_date.to_i,
     )
     daily_in_count.count += 1;

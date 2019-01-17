@@ -14,6 +14,7 @@
   <thead>
     <tr>
       <th>Count date</th>
+      <th>Repo id</th>
       <th>Site</th>
       <th>Count</th>
       <th colspan="2"></th>
@@ -24,6 +25,7 @@
     <% @daily_in_counts.each do |daily_in_count| %>
       <tr>
         <td><%= dt = daily_in_count.count_date; sprintf("%02d/%02d",dt/100%100,dt%100) %></td>
+        <td><%= daily_in_count.repo_id %></td>
         <td><%= if daily_in_count.site&.icon_url.present? then image_tag daily_in_count.site.icon_url else "N/A" end %>
         <%= daily_in_count.site&.name %></td>
         <td><%= daily_in_count.count.to_s(:delimited) %></td>

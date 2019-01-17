@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
 
   create_table "article_out_counts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "last_time", null: false
+    t.integer "repo_id", null: false
     t.integer "article_id", null: false
     t.integer "count", default: 0, null: false
     t.index ["article_id"], name: "index_article_out_counts_on_article_id"
@@ -44,20 +45,9 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
     t.index ["ex_id"], name: "index_categories_on_ex_id", unique: true
   end
 
-  create_table "check_cookies", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "hash", null: false
-    t.datetime "last_time", null: false
-    t.index ["hash"], name: "index_check_cookies_on_hash", unique: true
-  end
-
-  create_table "check_ips", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "ip", null: false
-    t.datetime "last_time", null: false
-    t.index ["ip"], name: "index_check_ips_on_ip", unique: true
-  end
-
   create_table "daily_in_counts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "count_date", null: false
+    t.integer "repo_id", null: false
     t.integer "site_id", null: false
     t.integer "count", default: 0, null: false
     t.index ["count_date", "count"], name: "index_daily_in_counts_on_count_date_and_count"
@@ -65,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_085400) do
 
   create_table "daily_out_counts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "count_date", null: false
+    t.integer "repo_id", null: false
     t.integer "site_id", null: false
     t.integer "count", default: 0, null: false
     t.index ["count_date", "count"], name: "index_daily_out_counts_on_count_date_and_count"

@@ -14,6 +14,7 @@
   <thead>
     <tr>
       <th>Last time</th>
+      <th>Repo id</th>
       <th>Article</th>
       <th>Count</th>
       <th colspan="2"></th>
@@ -24,6 +25,7 @@
     <% @article_out_counts.each do |article_out_count| %>
       <tr>
         <td><%= article_out_count.last_time&.localtime.strftime("%m/%d %H:%M") %></td>
+        <td><%= article_out_count.repo_id %></td>
         <td><%= if article_out_count.article&.site&.icon_url.present? then image_tag article_out_count.article&.site&.icon_url else "N/A" end %>
         <%= article_out_count.article&.name %></td>
         <td><%= article_out_count.count.to_s(:delimited) %></td>

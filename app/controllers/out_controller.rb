@@ -10,6 +10,7 @@ class OutController < ApplicationController
     
     if (site_id.present?) then
         daily_out_count = DailyOutCount.find_or_initialize_by(
+        repo_id: CONFIG['repo_id'],
         site_id: site_id.to_i,
         count_date: count_date.to_i,
       )
@@ -19,6 +20,7 @@ class OutController < ApplicationController
     
     if (article_id.present?) then
       article_out_counts = ArticleOutCount.find_or_initialize_by(
+        repo_id: CONFIG['repo_id'],
         article_id: article_id.to_i,
       )
       article_out_counts.last_time = last_time
