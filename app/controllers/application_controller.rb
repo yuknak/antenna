@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   before_action :basic
   
   private def basic
-      return if Rails.env == 'production'
+      return unless CONFIG['admin']['entire_lock']
       authenticate_or_request_with_http_basic do |user, pass|
-        user == 'admin' && pass == 'admin'
+        user == CONFIG['admin']['user'] && pass == CONFIG['admin']['pass']
       end
     end
 

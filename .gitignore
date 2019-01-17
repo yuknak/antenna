@@ -55,3 +55,4 @@ node_modules/
 public/assets
 public/screenshot/*.jpg
 public/favicon/*.png
+config/config.yml

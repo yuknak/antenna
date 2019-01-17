@@ -1,0 +1,35 @@
+# About repo_id:
+# 
+# If you use site1 view, git repo name should be antenna01x,
+# For example, you should clone from github like this:
+# git clone https://github.com/yuknak/antenna.git antenna011 
+# This means you are using site1 view and making 1st site of that. 
+# 
+# So, next, you MUST specify repo_id to 11 HERE.
+# (ex, when you use site2 1st site, repo name should be antenna021,
+# repo_id MUST be 21, if you make 2nd site2 site, repo_id MUST be 22)
+
+default: &default
+  repo_id: # ex) antenna001->1, antenna011->11
+    1
+  admin: # /admin console
+    user: admin
+    pass: minad
+
+development:
+  admin:
+    entire_lock: # Protect entire site
+      true
+  <<: *default
+
+test:
+  admin:
+    entire_lock: # Protect entire site
+      true
+  <<: *default
+
+production:
+  admin:
+    entire_lock: # Protect entire site
+      false
+  <<: *default
