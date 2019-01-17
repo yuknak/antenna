@@ -12,6 +12,9 @@
 default: &default
   repo_id: # ex) antenna001->1, antenna011->11
     1
+  task:
+    execute: # Set true on only one instance
+      false
   admin: # /admin console
     user: admin
     pass: minad
