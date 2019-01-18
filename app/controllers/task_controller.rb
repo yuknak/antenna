@@ -141,8 +141,8 @@ class TaskController < ApplicationController
       end
 
       # Download images (only once)
-      download_image(icon_url,'favicon')
-      download_image(thumbnail_url,'screenshot')
+      download_image(icon_url,'img/favicon')
+      download_image(thumbnail_url,'img/screenshot')
 
       # Update site
       site = Site.find_or_initialize_by(
@@ -152,8 +152,8 @@ class TaskController < ApplicationController
       site.url = url
       site.category_id = Category.where(name: category_name).first.id
       site.feed_url = feed_url
-      site.thumbnail_url = image_path(thumbnail_url, 'screenshot')
-      site.icon_url = image_path(icon_url, 'favicon')
+      site.thumbnail_url = image_path(thumbnail_url, 'img/screenshot')
+      site.icon_url = image_path(icon_url, 'img/favicon')
       if site.match_in_url.blank? then
         site.match_in_url = match_in_url
       end
@@ -183,6 +183,7 @@ class TaskController < ApplicationController
       Rails.root.join(
         'public', dir, File.basename(URI.parse(url).path))
     return if File.exist?(outfname)
+    FileUtils.mkdir_p(File.dirname(outfname))
     open(url, "r:binary") do |downf|
       open(outfname, "w+b") do |outf|
         outf.write(downf.read)

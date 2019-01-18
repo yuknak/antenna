@@ -31,25 +31,28 @@
 <main role="main" >
 <div class="container">
 
+<% if Article.order('pull_time desc').present? %>
+<small>
+最新記事100件 - 最終更新時刻 <%= Article.order('pull_time desc').limit(1)[0].pull_time&.localtime&.strftime("%m/%d %H:%M") %>
+</small>
+<% end %>
+
 <div class="table-responsive"><table class="table table-striped table-sm table-bordered table-hover">
   <tbody>
-    <% @articles.each do |article| %>
+    <% cnt = 0; @articles.each { |article| cnt += 1; %>
     <tr>
     <td><%= article.post_time&.localtime.strftime("%m/%d %H:%M") %></td>
     <td>
         <img src="<%= article.site&.category&.icon_url %>" alt="">
     </td>
     <td>
+        <img src="<%= article.site&.icon_url %>" alt="<%= article.site&.name %>">
+    </td>
+    <td>
         <a href="/out?s=<%= article.site&.id %>&a=<%= article.id %>&u=<%= article.url %>" class="hl"><%= article.name %></a>
     </td>
-    <td>
-        <img src="<%= article.site&.icon_url %>" alt="f">
-    </td>
-    <td>
-        <a href="/out?s=<%= article.site&.id %>&u=<%= article.site&.url %>" class="hl"><%= article.site&.name %></a>
-    </td>
     </tr>
-    <% end %>
+    <% break if cnt >= 100; } %>
   </tbody>
 </table></div><!-- table-responsive -->
 
