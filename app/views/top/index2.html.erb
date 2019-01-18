@@ -1,170 +1,85 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="robots" content="noarchive">
-<meta name="Description" content="アンテナサイト">
-<title>クローンアンテナ</title>
-<!--
-<base href="http://domain.com/" target="_blank">
--->
+<html>
+  <head>
+    <title><%= CONFIG['res']['title'] %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">  </head>
 <link rel="shortcut icon" href="/design2/favicon.ico">
-<link rel="stylesheet" type="text/css" href="/design2/style.css">
-</head>
-<body bgcolor="white" text="black">
+  <body>
 
-<div id="header">
+<header>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <%= link_to CONFIG['res']['title'], root_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExample05">
+    <ul class="navbar-nav mr-auto">
 
-<div class="nav1">
-<div class="container">
-<div class="damepo">
-<h1 style="font-size:10pt;margin:0px;"><a href="/" style="color:white;" target="_self">クローンアンテナ</a></h1>
-</div>
-<ul class="nl clearFix">
-<li class="off"><a href="/" target="_self">総合</a></li>
-<li class="off"><a href="/1" target="_self">NEWS</a></li>
-<li class="off"><a href="/2" target="_self">VIP</a></li>
-<li class="off"><a href="/3" target="_self">芸能</a></li>
-<li class="off"><a href="/4" target="_self">スポーツ</a></li>
-<li class="off"><a href="/5" target="_self">アニ漫</a></li>
-<li class="off"><a href="/6" target="_self">ゲーム</a></li>
-<li class="off"><a href="/7" target="_self">AA:SS</a></li>
-<li class="off"><a href="/8" target="_self">生活</a></li>
-<li class="off"><a href="/9" target="_self">翻訳</a></li>
-<li class="off"><a href="/10" target="_self">その他</a></li>
-</ul>
-
-</div>
-</div>
-
-</div>
-
-<div id="contents">
-<!--ADD_CM-->
-<br>
-
-<div align="center">
-<div id="headline">
-<table class="hl">
-<tr><td colspan="5" height="16" align="center" valign="top" bgcolor="#444444">
-<% if Article.order('pull_time desc').present? %>
-<span style="font-size:10pt;">最新記事情報 - <%= Article.order('pull_time desc').limit(1)[0].pull_time&.localtime&.strftime("%m/%d %H:%M") %></span>
+<% @categories.each do |category| %>
+      <li class="nav-item active">
+        <%= link_to category.name, "/"+category.id.to_s,  class: "nav-link" %>
+      </li>
 <% end %>
-</td></tr>
-<!--FRESH_ENTRY-->
 
-<% @articles.each do |article| %>
-    <tr class="hl">
-    <td class="hl_d"><%= article.post_time&.localtime.strftime("%m/%d %H:%M") %></td>
-    <td class="hl_c">
+    </ul>
+  </div>
+</nav>
+</header>
+
+<main role="main" >
+<div class="container">
+
+<div class="table-responsive"><table class="table table-striped table-sm table-bordered table-hover">
+  <tbody>
+    <% @articles.each do |article| %>
+    <tr>
+    <td><%= article.post_time&.localtime.strftime("%m/%d %H:%M") %></td>
+    <td>
         <img src="<%= article.site&.category&.icon_url %>" alt="">
     </td>
-    <td class="hl_t">
+    <td>
         <a href="/out?s=<%= article.site&.id %>&a=<%= article.id %>&u=<%= article.url %>" class="hl"><%= article.name %></a>
     </td>
-    <td class="hl_f">
+    <td>
         <img src="<%= article.site&.icon_url %>" alt="f">
     </td>
-    <td class="hl_n">
+    <td>
         <a href="/out?s=<%= article.site&.id %>&u=<%= article.site&.url %>" class="hl"><%= article.site&.name %></a>
     </td>
     </tr>
-<% end %>
-
-</table>
-</div>
-
-</div>
-
-<br>
-
-<div style="width:950px;margin:0px auto;padding:5px 0px;background-color:#333333;border:1px solid #666666;font-size:10pt;">
-サービス提供中
-</div>
-
-<br>
-
-<% i = 0 %>
-<% @sites.each do |site| %>
-<% articles = @site_articles.shift %>
-<table align="center" class="bloginfo">
-    <tr>
-        <td height="30" colspan="3" class="summary">
-            <div class="rank">
-                <img src="<%= site.icon_url %>" alt="f" class="va"> 
-                    <span style="font-size:12pt;"><%= i += 1 %> 位 <!--(→)--></span>
-            </div>
-            <div class="rank_name">
-                <img src="<%= site.category&.icon_url %>" alt="<%= site.category&.name %>" class="va"> 
-                    <a href="/out?s=<%= site.id %>&u=<%= site.url %>" class="blogname"> <%= site.name %></a> 
-                    <a href="/old?s=<%= site.id %>" style="font-size:8pt;">[一覧]</a>
-            </div>
-            <div class="rank_inout"><!-- xxx in / xxx out--></div>
-            <div class="clear"></div>
-        </td>
-    </tr>
-    <tr>
-        <td rowspan="6" width="120">
-            <a href="/out?s=<%= site.id %>&u=<%= site.url %>">
-                <img title=" <%= site.name %>" src="<%= site.thumbnail_url %>" width="120" height="120">
-            </a>
-        </td>
-    </tr>
-<% articles.each do |article| %>
-    <tr>
-        <td class="date"><%= article.post_time&.localtime&.strftime("%m/%d %H:%M") %></td>
-        <td class="title">
-            <div class="entry">
-                <div class="entry_bar">
-                    <img src="/design2/bar.png" alt="bar" width="99%" height="24">
-                </div>
-                <div class="entry_text">
-                    <a href="/out?s=<%= article.site&.id %>&a=<%= article.id %>&u=<%= article.url %>" class="title"><%= article.name %></a>
-                </div>
-            </div>
-        </td>
-    </tr>
-<% end %>
-</table>
-<br/>
-<% end %>
-
-<br>
+    <% end %>
+  </tbody>
+</table></div><!-- table-responsive -->
 
 </div>
+</main>
 
-<div id="footer">
+<style>
+main > .container {
+  padding: 60px 15px 0;
+}
+.footer {
+  background-color: #f5f5f5;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+code {
+  font-size: 80%;
+}
+</style>
 
-<div class="nav2">
-<div class="container">
-<div class="damepo">
-</div>
-<ul class="nl clearFix">
-<!--
-<li class="off"><a href="/" target="_self">1-25位</a></li>
-<li class="off"><a href="/" target="_self">26-50位</a></li>
-<li class="off"><a href="/" target="_self">51-75位</a></li>
-<li class="off"><a href="/" target="_self">76-100位</a></li>
-<li class="off"><a href="/" target="_self">101-125位</a></li>
-<li class="off"><a href="/" target="_self">126-150位</a></li>
-<li class="off"><a href="/" target="_self">151-175位</a></li>
-<li class="off"><a href="/" target="_self">176-200位</a></li>
--->
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off"><a href="/about" target="_self">About</a></li>
-</ul>
+<footer class="footer mt-auto py-3">
+  <div class="container">
+  <%= link_to 'About ' + CONFIG['res']['title'], '/about', class: "text-muted" %>
+  </div>
+</footer>
 
-</div>
-</div>
-
-</div>
-</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
 </html>

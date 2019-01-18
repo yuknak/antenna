@@ -1,69 +1,74 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="ja">
-
-<head>
-<title>クローンアンテナ</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="Keywords" content="2chまとめ,アンテナ">
-<meta name="Description" content="アンテナサイト">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<meta http-equiv="Content-Script-Type" content="text/javascript">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= CONFIG['res']['title'] %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">  </head>
 <link rel="shortcut icon" href="/design2/favicon.ico">
-<link rel="stylesheet" type="text/css" href="/design2/style.css">
-</head>
+  <body>
 
-<body bgcolor="white" color="black">
+<header>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <%= link_to CONFIG['res']['title'], root_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExample05">
+    <ul class="navbar-nav mr-auto">
 
-<div id="header">
-<div class="nav1">
+<% @categories.each do |category| %>
+      <li class="nav-item active">
+        <%= link_to category.name, "/"+category.id.to_s,  class: "nav-link" %>
+      </li>
+<% end %>
+
+    </ul>
+  </div>
+</nav>
+</header>
+
+<main role="main" >
 <div class="container">
 
-<div class="damepo">
-<h1 style="font-size:10pt;margin:0px;"><a href="/" style="color:white;" target="_self">クローンアンテナ</a></h1>
-</div>
+<br/>
+<p>
+サイト名: <%= CONFIG['res']['title'] %>
+</p>
 
-<ul class="nl clearFix">
-<li class="off"><a href="/">総合</a></li>
-<li class="off"><a href="/">NEWS</a></li>
-<li class="off"><a href="/">VIP</a></li>
-<li class="off"><a href="/">芸能</a></li>
-<li class="off"><a href="/">スポーツ</a></li>
-<li class="off"><a href="/">アニ漫</a></li>
-<li class="off"><a href="/">ゲーム</a></li>
-<li class="off"><a href="/">AA:SS</a></li>
-<li class="off"><a href="/">生活</a></li>
-<li class="off"><a href="/">翻訳</a></li>
-<li class="off"><a href="/">その他</a></li>
-</ul>
+<p>
+連絡先: <%= CONFIG['res']['email'] %>
+</p>
+
+<br/>
 
 </div>
-</div>
-</div>
+</main>
 
-<div id="contents">
-</div>
+<style>
+main > .container {
+  padding: 60px 15px 0;
+}
+.footer {
+  background-color: #f5f5f5;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+code {
+  font-size: 80%;
+}
+</style>
 
-<div id="footer">
+<footer class="footer mt-auto py-3">
+  <div class="container">
+  <%= link_to 'About ' + CONFIG['res']['title'], '/about', class: "text-muted" %>
+  </div>
+</footer>
 
-<div class="nav2">
-<div class="container">
-<div class="damepo">
-</div>
-<ul class="nl clearFix">
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off">&nbsp;</li>
-<li class="off"><a href="/about">About</a></li>
-</ul>
-
-</div>
-</div>
-
-</div>
-</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
 </html>
