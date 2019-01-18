@@ -1,18 +1,11 @@
-# About repo_id:
-# 
-# If you use tmpl1 view, git repo name should be antenna01x,
-# For example, you should clone from github like this:
-# git clone https://github.com/yuknak/antenna.git antenna011 
-# This means you are using tmpl1 view and making 1st site of that. 
-# So, next, you MUST specify repo_id to 11 HERE.
-# (ex, when you use tmpl2 1st site, repo name should be antenna021,
-# repo_id MUST be 21, if you make 2nd tmpl2 site, repo_id MUST be 22)
-
 default: &default
-  repo_id: # ex) antenna001->1, antenna011->11
+  # repo_id must be unique if you host multiple sites.
+  # and the first site's repo_id must be 1.
+  # because only repo_id=1 do tasks (fetch data to db)
+  repo_id: 
     1
-  task: # Set execute true on only one instance
-    execute: false
+  design: 
+    1
   admin: # /admin console
     user: admin
     pass: minad

@@ -4,6 +4,7 @@
 * MySQL 5.7
 * ruby 2.4.5
 * bundler 1.17.1
+* Rails 5.2.2
 
 # Install sample
 
@@ -26,18 +27,22 @@ sudo apt install -y libmysqlclient-dev
 sudo service mysql status
 sudo service mysql start
 ```
-Do the initial setup.
+Do mysql_secure_installation.
 ```
 sudo mysql_secure_installation
-# We need no plugin
-enter <= VALIDATE PASSWORD plugin
-# Set root/root
-New password: root
-Re-enter new password: root
-y <= Remove anonymous users?
-y <= Disallow root login remotely?
-y <= Remove test database and access to it?
-y <= Reload privilege tables now?
+
+# We do not need validate password plugin
+
+Would you like to setup VALIDATE PASSWORD plugin? [n]
+
+# Set root/root anyway
+
+New password: [root]
+Re-enter new password: [root]
+Remove anonymous users? [y]
+Disallow root login remotely? [y]
+Remove test database and access to it? [y]
+Reload privilege tables now? [y]
 ```
 Some fixes.
 
@@ -61,10 +66,10 @@ Start service.
 ```
 sudo service mysql restart
 sudo service mysql status
+# By service mysql status, you may check all the encoding are UTF8.
+# but can also in sudo mysql command, show variables like '%char%';
 ```
-Check all encoding are UTF8.
-
-Create ror mysql user by doing sudo mysql.
+You have to create 'ror' local mysql user by doing sudo mysql.
 ```
 CREATE USER 'ror'@'localhost' IDENTIFIED BY 'ror';
 GRANT ALL ON *.* TO 'ror'@'localhost';
@@ -95,22 +100,17 @@ gem install bundler -v 1.17.1
 ```
 cd ~
 
-git clone https://github.com/yuknak/antenna.git
+git clone https://github.com/yuknak/antenna.git antenna
 
 cd antenna
 
 bundle install --path vendor/bundle
 
-sed -e 's/ execute: false/ execute: true/' config/config.yml.sample > config/config.yml
+cp config/config.yml.sample config/config.yml
 
 bundle exec rails db:create
 bundle exec rails db:migrate
-
-bundle exec rails task:site
-bundle exec rails task:article
-bundle exec rails task:daily
-
-# bundle exec rails task:* 's output are redirected to log/task.log.
+bundle exec rails db:seed
 
 sudo service cron start
 
@@ -118,12 +118,8 @@ bundle exec whenever -i
 
 bundle exec rails server -b 0.0.0.0 -p 3000
 
-or daemon mode
-
-bundle exec rails server -b 0.0.0.0 -p 3000 -d
-
 ```
 
-Open browser and go to `http://server:3000/admin`
+Now you open browser and go to `http://server:3000/admin`
 
 user/pass: admin/minad

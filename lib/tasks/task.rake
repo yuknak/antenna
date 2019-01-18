@@ -8,7 +8,7 @@ namespace :task do
 
   task site: :environment do |task, args|
 
-    next unless CONFIG['task']['execute']
+    next if CONFIG['repo_id'] != 1
     Rails.logger = Logger.new("log/task.log", 5, 5 * 1024 * 1024)
     Rails.logger.level = Logger::INFO
     TaskController.new.site
@@ -17,7 +17,7 @@ namespace :task do
 
   task article: :environment do |task, args|
 
-    next unless CONFIG['task']['execute']
+    next if CONFIG['repo_id'] != 1
     Rails.logger = Logger.new("log/task.log", 5, 5 * 1024 * 1024)
     Rails.logger.level = Logger::INFO
     TaskController.new.article
@@ -26,7 +26,7 @@ namespace :task do
 
   task daily: :environment do |task, args|
 
-    next unless CONFIG['task']['execute']
+    next if CONFIG['repo_id'] != 1
     Rails.logger = Logger.new("log/task.log", 5, 5 * 1024 * 1024)
     Rails.logger.level = Logger::INFO
     TaskController.new.daily

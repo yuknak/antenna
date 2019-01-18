@@ -7,8 +7,6 @@ set :environment, rails_env
 
 #set :output, "#{Rails.root}/log/cron.log"
 
-# Check CONFIG['task']['execute'] flag in config.yml
-
 # task log is log/task.log [->task.log.1-5]
 # see lib/tasks/task.rake
 
