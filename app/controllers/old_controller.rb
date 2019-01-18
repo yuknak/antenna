@@ -4,6 +4,8 @@ class OldController < ApplicationController
     site_id = params[:s]
     redirect_to :root if site_id.blank?
     
+    @categories = Category.all
+
     @site = Site.find(site_id)
     redirect_to :root if @site.blank?
     

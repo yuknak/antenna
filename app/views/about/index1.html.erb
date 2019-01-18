@@ -2,7 +2,7 @@
 <html lang="ja">
 
 <head>
-<title>クローンアンテナ</title>
+<title><%= CONFIG['res']['title'] %></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Keywords" content="2chまとめ,アンテナ">
 <meta name="Description" content="アンテナサイト">
@@ -19,21 +19,13 @@
 <div class="container">
 
 <div class="damepo">
-<h1 style="font-size:10pt;margin:0px;"><a href="/" style="color:white;" target="_self">クローンアンテナ</a></h1>
+<h1 style="font-size:10pt;margin:0px;"><a href="/" style="color:white;" target="_self"><%= CONFIG['res']['title'] %></a></h1>
 </div>
 
 <ul class="nl clearFix">
-<li class="off"><a href="/">総合</a></li>
-<li class="off"><a href="/">NEWS</a></li>
-<li class="off"><a href="/">VIP</a></li>
-<li class="off"><a href="/">芸能</a></li>
-<li class="off"><a href="/">スポーツ</a></li>
-<li class="off"><a href="/">アニ漫</a></li>
-<li class="off"><a href="/">ゲーム</a></li>
-<li class="off"><a href="/">AA:SS</a></li>
-<li class="off"><a href="/">生活</a></li>
-<li class="off"><a href="/">翻訳</a></li>
-<li class="off"><a href="/">その他</a></li>
+<% @categories.each do |category| %>
+<li class="off"><a href="/<%= category.id %>" target="_self"><%= category.name%></a></li>
+<% end %>
 </ul>
 
 </div>
@@ -41,6 +33,17 @@
 </div>
 
 <div id="contents">
+<br/>
+
+<br/>
+<p>
+サイト名: <%= CONFIG['res']['title'] %>
+</p>
+
+<p>
+連絡先: <%= CONFIG['res']['email'] %>
+</p>
+
 </div>
 
 <div id="footer">

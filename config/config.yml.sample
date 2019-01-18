@@ -6,6 +6,9 @@ default: &default
     1
   design: 
     1
+  res:
+    title: ANTENNA
+    email: mail@domain.com
   admin: # /admin console
     user: admin
     pass: minad

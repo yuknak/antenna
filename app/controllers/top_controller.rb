@@ -4,6 +4,11 @@ class TopController < ApplicationController
   # run rails dev:cache to toggle caching.
   # Also see in config/environments/*.rb
 
+  private def cached_categories
+    Rails.cache.fetch("/model/category/all", expired_in: 10.minutes) do
+      Category.all
+    end
+  end
   private def cached_all_articles
     Rails.cache.fetch("/model/article/all", expired_in: 10.minutes) do
       Article.order('post_time desc').limit(CONFIG['top_lines']['articles'])
@@ -33,6 +38,8 @@ class TopController < ApplicationController
   def index
     
     @category_id = params[:id]
+
+    @categories = cached_categories
 
     if @category_id.blank? then
       @articles = cached_all_articles
