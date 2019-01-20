@@ -7,6 +7,10 @@ namespace :seed do
 
   task up: :environment do |task, args|
     Dir.chdir(Rails.root) do
+      if ENV['RAILS_ENV']=='production' then
+        puts "Cannot run in produnction mode."
+        next
+      end
       if ENV['SSH_PORT'].blank? then
         puts "Specify export SSH_PORT=22 or else."
         next
@@ -29,6 +33,10 @@ namespace :seed do
 
   task down: :environment do |task, args|
     Dir.chdir(Rails.root) do
+      if ENV['RAILS_ENV']=='production' then
+        puts "Cannot run in produnction mode."
+        next
+      end
       day = '20190120'
       seed_fname = "antenna-seed-#{day}.tgz"
       img_fname = "antenna-img-#{day}.tgz"
