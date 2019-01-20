@@ -12,8 +12,6 @@ default: &default
   admin: # /admin console
     user: admin
     pass: minad
-    entire_lock: # Protect entire site
-      true
   top_lines:
     articles: 150
     sites: 25
@@ -26,6 +24,4 @@ test:
   <<: *default
 
 production:
-  admin:
-    entire_lock: false
   <<: *default

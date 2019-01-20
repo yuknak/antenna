@@ -4,11 +4,12 @@ class ApplicationController < ActionController::Base
   before_action :basic
   
   private def basic
-      return unless CONFIG['admin']['entire_lock']
+    if ENV['RAILS_ENV'] != 'production' then
       authenticate_or_request_with_http_basic do |user, pass|
         user == CONFIG['admin']['user'] && pass == CONFIG['admin']['pass']
       end
     end
+  end
 
   private def process_daily_in_counts
     return if response.status != 200
