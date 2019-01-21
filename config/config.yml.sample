@@ -2,6 +2,7 @@ default: &default
   # repo_id must be unique if you host multiple sites.
   # and the first site's repo_id must be 1.
   # because only repo_id=1 do tasks (fetch data to db)
+  # and public/img has image files downloaded by tasks
   repo_id: 
     1
   design: 

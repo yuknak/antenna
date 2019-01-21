@@ -66,13 +66,15 @@ Start service.
 ```
 sudo service mysql restart
 sudo service mysql status
-# By service mysql status, you may check all the encoding are UTF8.
-# but can also in sudo mysql command, show variables like '%char%';
 ```
 You have to create 'ror' local mysql user by doing sudo mysql.
 ```
 CREATE USER 'ror'@'localhost' IDENTIFIED BY 'ror';
 GRANT ALL ON *.* TO 'ror'@'localhost';
+```
+And check all the encoding are UTF8.
+```
+show variables like '%char%';
 ```
 
 ## Ruby user install
@@ -110,11 +112,8 @@ cp config/config.yml.sample config/config.yml
 
 bundle exec rails db:create
 bundle exec rails db:migrate
+bundle exec rails seed:down
 bundle exec rails db:seed
-
-sudo service cron start
-
-bundle exec whenever -i
 
 bundle exec rails server -b 0.0.0.0 -p 3000
 
