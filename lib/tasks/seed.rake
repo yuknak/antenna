@@ -26,8 +26,8 @@ namespace :seed do
       img_fname = "antenna-img-#{today}.tgz"
       `tar cvzf #{seed_fname} db/seeds.rb`
       `tar cvzf #{img_fname} public/img`
-      `scp -P #{ENV['SSH_PORT']} #{seed_fname} yuknak@corp.yuknak.site:/home/yuknak/download`
-      `scp -P #{ENV['SSH_PORT']} #{img_fname} yuknak@corp.yuknak.site:/home/yuknak/download`
+      `scp -P #{ENV['SSH_PORT']} #{seed_fname} yuknak@corp.yuknak.net:/home/yuknak/download`
+      `scp -P #{ENV['SSH_PORT']} #{img_fname} yuknak@corp.yuknak.net:/home/yuknak/download`
     end    
   end
 
@@ -40,8 +40,8 @@ namespace :seed do
       day = '20190120'
       seed_fname = "antenna-seed-#{day}.tgz"
       img_fname = "antenna-img-#{day}.tgz"
-      `wget http://corp.yuknak.site/download/#{seed_fname}`
-      `wget http://corp.yuknak.site/download/#{img_fname}`
+      `wget http://corp.yuknak.net/download/#{seed_fname}`
+      `wget http://corp.yuknak.net/download/#{img_fname}`
       `tar xvzf #{seed_fname}`
       `tar xvzf #{img_fname}`
     end 
